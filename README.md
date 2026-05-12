@@ -160,6 +160,6 @@ Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) par
 
 <div align="center">
 
-Desenvolvido com ☕ por **[Seu Nome](https://github.com/seu-usuario)** · FATEC Zona Leste
+Desenvolvido com ☕ por **[Seu Nome](https://github.com/gabrieldelfino28)** · FATEC Zona Leste
 
 </div>
