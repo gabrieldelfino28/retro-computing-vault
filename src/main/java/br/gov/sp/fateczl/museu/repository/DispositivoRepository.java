@@ -14,12 +14,12 @@ public interface DispositivoRepository<T extends Dispositivo> extends HardwareRe
     List<T> findByCpuContainingIgnoreCase(String cpu);
 
     List<T> findByRamUnidade(UnidadeMemoria unidade);
-
-    List<T> findByRamQuantidade(Integer quantidade);
+    List<T> findByRamUnidadeOrderBy(UnidadeMemoria unidade);
+    List<T> findByRamUnidadeAndByRamQuantidade(UnidadeMemoria unidade, Integer quantidade);
 
     List<T> findByRomUnidade(UnidadeMemoria unidade);
+    List<T> findByRomUnidadeAndByRomQuantidade(UnidadeMemoria unidade, Integer quantidade);
 
-    List<T> findByRomQuantidade(Integer quantidade);
 
     List<T> findBySistemaOperacionalContainingIgnoreCase(String sistemaOperacional);
 

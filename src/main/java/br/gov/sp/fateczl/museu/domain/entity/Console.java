@@ -9,12 +9,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@ToString
 @Entity
+@ToString
+@NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class Console extends Dispositivo{
 
     @Column(name="geracao", length = 40)

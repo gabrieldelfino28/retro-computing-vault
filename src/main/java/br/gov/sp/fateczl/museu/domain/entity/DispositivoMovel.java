@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @ToString
+@NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class DispositivoMovel extends Dispositivo{
 
     @Column(name = "tamanho_tela_polegadas")

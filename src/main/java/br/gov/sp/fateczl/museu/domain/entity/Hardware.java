@@ -2,6 +2,7 @@ package br.gov.sp.fateczl.museu.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@SuperBuilder(toBuilder = true)
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Hardware {
     @Id

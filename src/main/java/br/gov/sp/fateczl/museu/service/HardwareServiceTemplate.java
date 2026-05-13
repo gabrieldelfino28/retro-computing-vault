@@ -16,8 +16,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
 
     @Transactional
     public final T register(T hardware, List<Imagem> imagens) {
-        log.info(Logger.BEGIN.forEntity("Hardware"), hardware.getModelo());
-        //log.info("Iniciando registro do Hardware: {}", hardware.getModelo());
+        log.info(Logger.RECORD.forEntity("Hardware"), hardware.getModelo());
         validateHardwareFields(hardware);
 
         if (imagens != null && !imagens.isEmpty()) {
@@ -25,9 +24,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
             log.info("Vinculando {} imagens ao hardware", imagens.size());
             imagens.forEach(hardware::addImagem);
         }
-        T saved = save(hardware);
-        log.info(Logger.END.forEntity("Hardware"), saved.getId());
-        return saved;
+        return save(hardware);
     }
 
     private void validateHardwareFields(T h) {

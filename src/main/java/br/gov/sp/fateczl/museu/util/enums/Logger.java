@@ -2,11 +2,12 @@ package br.gov.sp.fateczl.museu.util.enums;
 
 public enum Logger {
 
-    BEGIN("Iniciando registro do objeto: "),
-    END("Salvo com sucesso! ID: "),
+    RECORD("Iniciando registro do objeto: "),
+    SAVE("Salvo com sucesso! ID: "),
     VALIDATE("Validando campos de "),
-    LOAD_START(""),
+    LOAD("Carregando os atributos do objeto: "),
     USR_LOGIN("Usuário autenticado: {}"),
+    DELETE("Excluído com sucesso! ID: "),
     AUTH_ACCESS("Tentativa de acesso ao módulo admin por {}")
     ;
 
