@@ -5,7 +5,6 @@ import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
 import br.gov.sp.fateczl.museu.exception.codes.DeviceErr;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
-import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.AppInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -44,59 +43,35 @@ public abstract class DispositivoServiceTemplate<T extends Dispositivo> extends 
         validateSpecificFields(d);
     }
 
-    @Transactional(readOnly = true)
-    public final T searchById(Long id) {
-        return getRepository().findById(id)
-                .orElseThrow(() -> new BusinessRuleException(NullErr.NULL_FIELD));
-    }
-
-    @Transactional(readOnly = true)
-    public final List<T> getAll() {
-        return getRepository().findAll();
-    }
-
-    /**
-     *  HardwareRepository searchBy methods
-     */
-
-    @Transactional(readOnly = true)
-    public final List<T> searchByModelo(String model) {
-        List<T> res = getRepository().findByModeloContainingIgnoreCase(model);
-        checkEmpty(res);
-        return res;
-    }
-
-    @Transactional(readOnly = true)
-    public final List<T> searchByFabricante(String fabricante) {
-        List<T> res = getRepository().findByFabricanteContainingIgnoreCase(fabricante);
-        checkEmpty(res);
-        return res;
-    }
-
-    @Transactional(readOnly = true)
-    public final List<T> searchByDataLancamento(LocalDate data) {
-        List<T> res = getRepository().findByDataLancamento(data);
-        checkEmpty(res);
-        return res;
-    }
-
-    @Transactional(readOnly = true)
-    public final List<T> searchByPais(String pais) {
-        List<T> res = getRepository().findByPaisOrigemContainingIgnoreCase(pais);
-        checkEmpty(res);
-        return res;
-    }
 
     /**
      * DispositivoRepository searchBy methods
      */
 
-
-    private void checkEmpty(List<T> resultSet) {
-        FluentValidator.begin().check(resultSet.isEmpty(), NullErr.NOT_FOUND);
+    @Override
+    protected void applyInheritedUpdates(T current, T incoming) {
+        applyDeviceUpdates(current, incoming);
+        applySpecificUpdates(current, incoming);
     }
 
-    protected abstract void validateSpecificFields(T t);
+    private void applyDeviceUpdates(T current, T incoming) {
+        current.setCpu(incoming.getCpu());
+        current.setSistemaOperacional(incoming.getSistemaOperacional());
+        current.setLinguagemEmbutida(incoming.getLinguagemEmbutida());
+        current.setRamUnidade(incoming.getRamUnidade());
+        current.setRamQuantidade(incoming.getRamQuantidade());
+        current.setRomUnidade(incoming.getRomUnidade());
+        current.setRomQuantidade(incoming.getRomQuantidade());
+        current.setMidiaArmazenamento(incoming.getMidiaArmazenamento());
+        current.setInterfacesInOut(incoming.getInterfacesInOut());
+        current.setVideo(incoming.getVideo());
+        current.setAudio(incoming.getAudio());
+        current.setArquiteturaBase(incoming.getArquiteturaBase());
+        current.setDesignExterior(incoming.getDesignExterior());
+        current.setEnergia(incoming.getEnergia());
+    }
 
-    protected abstract DispositivoRepository<T> getRepository();
+    protected abstract void validateSpecificFields(T d);
+
+    protected abstract void applySpecificUpdates(T current, T incoming);
 }
