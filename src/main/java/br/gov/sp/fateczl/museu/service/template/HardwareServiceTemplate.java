@@ -134,4 +134,6 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
     protected abstract T save(T hardware);
 
     protected abstract void applyInheritedUpdates(T current, T incoming);
+
+    public abstract void deleteById(Long id);
 }

@@ -56,6 +56,7 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador> {
         existing.setResolucoes(incoming.getResolucoes());
     }
 
+    @Override
     @Transactional
     public void deleteById(Long id) {
         log.info(Logger.DELETE.forEntity("Computador"));
