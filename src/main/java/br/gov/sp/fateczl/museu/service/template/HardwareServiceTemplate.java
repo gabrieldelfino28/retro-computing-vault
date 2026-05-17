@@ -1,4 +1,4 @@
-package br.gov.sp.fateczl.museu.service;
+package br.gov.sp.fateczl.museu.service.template;
 
 import br.gov.sp.fateczl.museu.domain.entity.Hardware;
 import br.gov.sp.fateczl.museu.domain.entity.Imagem;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
-public abstract class HardwareServiceTemplate<T extends Hardware> implements IHardwareService<T> {
+public abstract class HardwareServiceTemplate<T extends Hardware> {
 
     @Transactional
     public final T insert(T hardware, List<Imagem> imagens) {

@@ -4,6 +4,7 @@ public enum Logger {
 
     RECORD("Iniciando registro do objeto: "),
     SAVE("Salvo com sucesso! ID: "),
+    UPDATE("Iniciando update | ID: "),
     VALIDATE("Validando campos de "),
     LOAD("Carregando os atributos do objeto: "),
     USR_LOGIN("Usuário autenticado: {}"),

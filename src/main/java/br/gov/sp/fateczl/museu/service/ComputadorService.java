@@ -6,12 +6,11 @@ import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.ComputadorRepository;
 import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
+import br.gov.sp.fateczl.museu.service.template.DispositivoServiceTemplate;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.Logger;
 import jakarta.transaction.Transactional;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -41,26 +40,22 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador> {
         ;
     }
 
-
     @Override
     @Transactional
     protected Computador save(Computador hardware) {
         log.info(Logger.SAVE.forEntity("Computador"), hardware.getId());
-        return repository.save(hardware);
+        return getRepository().save(hardware);
     }
 
     @Override
     @Transactional
-    public void update(Computador h) {
-        Computador updatedEntity = getRepository().findById(h.getId())
-                .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
-        updatedEntity.setModelo(h.getModelo());
-        updatedEntity.setFabricante(h.getFabricante());
-        //... etc preguiça :(
-        this.save(updatedEntity);
+    protected void applySpecificUpdates(Computador existing, Computador incoming) {
+        existing.setTipo(incoming.getTipo());
+        existing.setExpansibilidade(incoming.getExpansibilidade());
+        existing.setTecladoDescricao(incoming.getTecladoDescricao());
+        existing.setResolucoes(incoming.getResolucoes());
     }
 
-    @Override
     @Transactional
     public void deleteById(Long id) {
         log.info(Logger.DELETE.forEntity("Computador"));

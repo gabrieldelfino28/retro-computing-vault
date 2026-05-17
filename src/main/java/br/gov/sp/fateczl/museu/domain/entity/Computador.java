@@ -24,7 +24,6 @@ public class Computador extends Dispositivo{
     @Column(name = "tipo_computador", nullable = false)
     private TipoComputador tipo;
 
-    @NotBlank(message = "")
     @Column(name = "expansibilidade", columnDefinition = "TEXT", nullable = false)
     private String expansibilidade;
 
