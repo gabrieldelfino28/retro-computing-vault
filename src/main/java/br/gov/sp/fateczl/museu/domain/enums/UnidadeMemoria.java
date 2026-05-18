@@ -21,6 +21,11 @@ public enum UnidadeMemoria {
         this.pesoBits = pesoBits;
     }
 
+    public long computeWeight(Integer quantidade) {
+        if (quantidade == null || quantidade < 0) return 0L;
+        return quantidade * this.pesoBits;
+    }
+
     public String getDescricaoByQuantity(Integer memoriaQuatidade) {
         if (memoriaQuatidade == null || memoriaQuatidade < 1) return this.nomeSingular;
         return this.nomePlural;
