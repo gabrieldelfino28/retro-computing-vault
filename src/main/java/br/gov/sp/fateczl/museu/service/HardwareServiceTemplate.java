@@ -1,4 +1,4 @@
-package br.gov.sp.fateczl.museu.service.template;
+package br.gov.sp.fateczl.museu.service;
 
 import br.gov.sp.fateczl.museu.domain.entity.Hardware;
 import br.gov.sp.fateczl.museu.domain.entity.Imagem;
