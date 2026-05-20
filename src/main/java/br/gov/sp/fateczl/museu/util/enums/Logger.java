@@ -12,6 +12,7 @@ public enum Logger {
     AUTH_ACCESS("Tentativa de acesso ao módulo admin por {}")
     ;
 
+    private final static String separator = "█".repeat(6);
     private final String msg;
 
     Logger(String message) {
@@ -19,7 +20,7 @@ public enum Logger {
     }
 
     public String forEntity(String entity) {
-     // return: [Entidade] Mensagem {}
-        return String.format("[%s] %s {}", entity, this.msg);
+     // return: ██████ [Entidade] Mensagem {} ██████
+        return separator + String.format("[%s] %s {}", entity, this.msg) + separator;
     }
 }
