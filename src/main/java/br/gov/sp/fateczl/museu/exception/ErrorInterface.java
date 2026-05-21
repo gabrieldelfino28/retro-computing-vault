@@ -4,5 +4,5 @@ public interface ErrorInterface {
 
     String getMessage();
 
-    String formatMessage(Object... args);
+    String getFormatedMessage(Object... args);
 }

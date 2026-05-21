@@ -1,6 +1,6 @@
 package br.gov.sp.fateczl.museu.util.enums;
 
-public enum Logger {
+public enum LogMessage {
 
     RECORD("Iniciando registro do objeto: "),
     SAVE("Salvo com sucesso! ID: "),
@@ -15,7 +15,7 @@ public enum Logger {
     private final static String separator = "█".repeat(6);
     private final String msg;
 
-    Logger(String message) {
+    LogMessage(String message) {
         this.msg = message;
     }
 

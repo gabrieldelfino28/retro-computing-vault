@@ -7,7 +7,7 @@ import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.HardwareRepository;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
-import br.gov.sp.fateczl.museu.util.enums.Logger;
+import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +19,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
 
     @Transactional
     public final T insert(T hardware, List<Imagem> imagens) {
-        log.info(Logger.RECORD.forEntity("Hardware"), hardware.getModelo());
+        log.info(LogMessage.RECORD.forEntity("Hardware"), hardware.getModelo());
         validateHardwareFields(hardware);
 
         if (imagens != null && !imagens.isEmpty()) {
@@ -53,7 +53,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
     }
 
     public final void update(T incoming) {
-        log.info(Logger.UPDATE.forEntity("Hardware"), incoming.getId());
+        log.info(LogMessage.UPDATE.forEntity("Hardware"), incoming.getId());
         T current = getRepository().findById(incoming.getId())
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
 

@@ -26,7 +26,7 @@ public enum DeviceErr implements ErrorInterface {
     }
 
     @Override
-    public String formatMessage(Object... args) {
-        return String.format(message, args);
+    public String getFormatedMessage(Object... args) {
+        return String.format(getMessage(), args);
     }
 }

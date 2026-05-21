@@ -7,7 +7,6 @@ import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.AppInfo;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public abstract class DispositivoServiceTemplate<T extends Dispositivo> extends HardwareServiceTemplate<T> {
 
     @Override
