@@ -9,10 +9,8 @@ import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 public class ComputadorService extends DispositivoServiceTemplate<Computador> {
 
@@ -41,7 +39,7 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador> {
     @Override
     @Transactional
     protected Computador save(Computador hardware) {
-        log.info(LogMessage.SAVE.forEntity("Computador"), hardware.getId());
+        log.info(LogMessage.SAVE, "Computador", hardware.getId());
         return getRepository().save(hardware);
     }
 
@@ -57,9 +55,9 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador> {
     @Override
     @Transactional
     public void deleteById(Long id) {
-        log.info(LogMessage.DELETE.forEntity("Computador"));
         Computador c = repository.findById(id)
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
+        log.info(LogMessage.DELETE, "Computador",c.getId());
         repository.delete(c);
     }
 }

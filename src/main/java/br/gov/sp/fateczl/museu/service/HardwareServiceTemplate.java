@@ -7,24 +7,31 @@ import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.HardwareRepository;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
+import br.gov.sp.fateczl.museu.util.Logger;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
-import lombok.extern.slf4j.Slf4j;
+import br.gov.sp.fateczl.museu.util.logging.MuseumLogger;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Slf4j
 public abstract class HardwareServiceTemplate<T extends Hardware> {
+
+    protected final Logger log;
+
+    protected HardwareServiceTemplate() {
+        this.log = MuseumLogger.of(this.getClass());
+    }
 
     @Transactional
     public final T insert(T hardware, List<Imagem> imagens) {
-        log.info(LogMessage.RECORD.forEntity("Hardware"), hardware.getModelo());
+        log.info(LogMessage.RECORD, "Hardware", hardware.getModelo());
         validateHardwareFields(hardware);
 
         if (imagens != null && !imagens.isEmpty()) {
             FluentValidator.begin().limit(imagens, 8, HardwareErr.PHOTO_LIMIT, "Imagens");
-            log.info("Vinculando {} imagens ao hardware", imagens.size());
+            log.info(LogMessage.RELATION_LINK_BATCH, "Hardware", imagens.size(), "Imagens", hardware.getModelo());
+            //log.info("Vinculando {} imagens ao hardware", imagens.size());
             imagens.forEach(hardware::addImagem);
         }
         return save(hardware);
