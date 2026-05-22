@@ -7,7 +7,9 @@ import lombok.experimental.SuperBuilder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -58,7 +60,7 @@ public abstract class Hardware {
     private Usuario registradoPor;
 
     @OneToMany(mappedBy = "hardware", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Imagem> imagens = new ArrayList<>();
+    private Set<Imagem> imagens = new HashSet<>();
 
     public void addImagem(Imagem img) {
         this.imagens.add(img);

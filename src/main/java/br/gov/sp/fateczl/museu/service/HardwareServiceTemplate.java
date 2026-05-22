@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public abstract class HardwareServiceTemplate<T extends Hardware> {
 
@@ -24,14 +25,13 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
     }
 
     @Transactional
-    public final T insert(T hardware, List<Imagem> imagens) {
+    public final T insert(T hardware, Set<Imagem> imagens) {
         log.info(LogMessage.RECORD, "Hardware", hardware.getModelo());
         validateHardwareFields(hardware);
 
         if (imagens != null && !imagens.isEmpty()) {
             FluentValidator.begin().limit(imagens, 8, HardwareErr.PHOTO_LIMIT, "Imagens");
             log.info(LogMessage.RELATION_LINK_BATCH, "Hardware", imagens.size(), "Imagens", hardware.getModelo());
-            //log.info("Vinculando {} imagens ao hardware", imagens.size());
             imagens.forEach(hardware::addImagem);
         }
         return save(hardware);
@@ -63,7 +63,6 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
         log.info(LogMessage.UPDATE.forEntity("Hardware"), incoming.getId());
         T current = getRepository().findById(incoming.getId())
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
-
         applyHardwareUpdates(current, incoming);
         applyInheritedUpdates(current, incoming);
 
@@ -131,7 +130,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
     }
 
     /**
-     * Interface de HardwareService
+     * @implNote | Interface Abstrata de HardwareService
      */
 
     protected abstract HardwareRepository<T> getRepository();
