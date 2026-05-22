@@ -1,4 +1,4 @@
-package br.gov.sp.fateczl.museu.service;
+package br.gov.sp.fateczl.museu.service.template;
 
 import br.gov.sp.fateczl.museu.domain.entity.Hardware;
 import br.gov.sp.fateczl.museu.domain.entity.Imagem;
@@ -60,7 +60,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
     }
 
     public final void update(T incoming) {
-        log.info(LogMessage.UPDATE.forEntity("Hardware"), incoming.getId());
+        log.info(LogMessage.UPDATE, "Hardware", incoming.getId());
         T current = getRepository().findById(incoming.getId())
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
         applyHardwareUpdates(current, incoming);

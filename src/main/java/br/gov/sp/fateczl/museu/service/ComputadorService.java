@@ -6,6 +6,7 @@ import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.ComputadorRepository;
 import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
+import br.gov.sp.fateczl.museu.service.template.DispositivoServiceTemplate;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import org.springframework.stereotype.Service;

@@ -7,6 +7,12 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
+/**
+ * @implNote This is a private Implementation of Logger
+ * @see Logger
+ *
+ * @see AppLogger
+ */
 class AppLogger implements Logger {
 
     private final org.slf4j.Logger log;
