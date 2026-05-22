@@ -1,10 +1,7 @@
 package br.gov.sp.fateczl.museu.domain.entity;
 
 import br.gov.sp.fateczl.museu.domain.enums.UnidadeMemoria;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -62,4 +59,16 @@ public abstract class Dispositivo extends Hardware{
 
     @Column(name = "energia", nullable = false, length = 100)
     private String energia;
+
+    @Transient
+    public long getPesoRam() {
+        if(ramUnidade == null || ramQuantidade == null) return 0L;
+        return ramUnidade.computeWeight(ramQuantidade);
+    }
+
+    @Transient
+    public long getPesoRom() {
+        if(romUnidade == null || romQuantidade == null) return 0L;
+        return romUnidade.computeWeight(romQuantidade);
+    }
 }
