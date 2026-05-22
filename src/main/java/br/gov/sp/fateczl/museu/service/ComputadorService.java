@@ -8,8 +8,8 @@ import br.gov.sp.fateczl.museu.repository.ComputadorRepository;
 import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ComputadorService extends DispositivoServiceTemplate<Computador> {
