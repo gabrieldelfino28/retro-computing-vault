@@ -17,8 +17,6 @@ class AppLogger implements Logger {
 
     private final org.slf4j.Logger log;
 
-    private final String separator = "";
-
     AppLogger(Class<?> clazz) {
         this.log = LoggerFactory.getLogger(clazz);
     }
