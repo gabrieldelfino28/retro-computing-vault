@@ -1,10 +1,16 @@
 package br.gov.sp.fateczl.museu.service.template;
 
 import br.gov.sp.fateczl.museu.domain.entity.Dispositivo;
+import br.gov.sp.fateczl.museu.domain.enums.UnidadeMemoria;
 import br.gov.sp.fateczl.museu.exception.codes.DeviceErr;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.AppInfo;
+import br.gov.sp.fateczl.museu.util.enums.DeviceComparator;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Comparator;
+import java.util.List;
 
 public abstract class DispositivoServiceTemplate<T extends Dispositivo> extends HardwareServiceTemplate<T> {
 
@@ -61,6 +67,30 @@ public abstract class DispositivoServiceTemplate<T extends Dispositivo> extends 
         current.setArquiteturaBase(incoming.getArquiteturaBase());
         current.setDesignExterior(incoming.getDesignExterior());
         current.setEnergia(incoming.getEnergia());
+    }
+
+    @Transactional
+    public final List<T> searchByRamMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
+        long pesoMinimo = unidade.computeWeight(quantidade);
+
+        List<T> res = getAll()
+                .stream()
+                .filter(d -> d.getPesoRam() >= pesoMinimo).toList();
+        return sort(res, order);
+    }
+
+    @Transactional
+    public final List<T> searchByRomMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
+        long pesoMinimo = unidade.computeWeight(quantidade);
+
+        List<T> res = getAll()
+                .stream()
+                .filter(d -> d.getPesoRom() >= pesoMinimo).toList();
+        return sort(res, order);
+    }
+
+    private List<T> sort(List<T> set, DeviceComparator c) {
+        return set.stream().sorted(c.get()).toList();
     }
 
     protected abstract void validateSpecificFields(T d);

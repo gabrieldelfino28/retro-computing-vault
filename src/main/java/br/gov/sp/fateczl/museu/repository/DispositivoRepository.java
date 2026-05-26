@@ -15,19 +15,7 @@ public interface DispositivoRepository<T extends Dispositivo> extends HardwareRe
 
     List<T> findByRamUnidade(UnidadeMemoria unidade);
 
-    @Query("""
-            SELECT d FROM Dispositivo d
-            WHERE (d.ramQuantidade * d.ramUnidade.pesoBits) >= :pesoMinimo
-    """)
-    List<T> findByRamPesoMinimo(@Param("pesoMinimo") long pesoMinimo);
-
     List<T> findByRomUnidade(UnidadeMemoria unidade);
-
-    @Query("""
-        SELECT d FROM Dispositivo d
-        WHERE (d.romQuantidade * d.romUnidade.pesoBits) >= :pesoMinimo
-    """)
-    List<T> findByRomPesoMinimo(@Param("pesoMinimo") long pesoMinimo);
 
     List<T> findBySistemaOperacionalContainingIgnoreCase(String sistemaOperacional);
 
