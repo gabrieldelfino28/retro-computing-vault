@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-public abstract class HardwareServiceTemplate<T extends Hardware> {
+public abstract class HardwareServiceTemplate<Type extends Hardware, Repository extends HardwareRepository<Type>> {
 
     protected final Logger log;
 
@@ -25,7 +25,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
     }
 
     @Transactional
-    public final T insert(T hardware, Set<Imagem> imagens) {
+    public final Type insert(Type hardware, Set<Imagem> imagens) {
         log.info(LogMessage.RECORD, "Hardware", hardware.getModelo());
         validateHardwareFields(hardware);
 
@@ -37,7 +37,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
         return save(hardware);
     }
 
-    private void validateHardwareFields(T h) {
+    private void validateHardwareFields(Type h) {
         FluentValidator.begin()
                 .notNullObject(h, NullErr.NULL_OBJECT, "Hardware")
 
@@ -59,9 +59,9 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
         validateDeviceFields(h);
     }
 
-    public final void update(T incoming) {
+    public final void update(Type incoming) {
         log.info(LogMessage.UPDATE, "Hardware", incoming.getId());
-        T current = getRepository().findById(incoming.getId())
+        Type current = getRepository().findById(incoming.getId())
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
         applyHardwareUpdates(current, incoming);
         applyInheritedUpdates(current, incoming);
@@ -69,7 +69,7 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
         save(current);
     }
 
-    private void applyHardwareUpdates(T current, T incoming) {
+    private void applyHardwareUpdates(Type current, Type incoming) {
         current.setModelo(incoming.getModelo());
         current.setFabricante(incoming.getFabricante());
         current.setDescricao(incoming.getDescricao());
@@ -87,45 +87,45 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
      */
 
     @Transactional(readOnly = true)
-    public final List<T> searchByModelo(String model) {
-        List<T> res = getRepository().findByModeloContainingIgnoreCase(model);
+    public final List<Type> searchByModelo(String model) {
+        List<Type> res = getRepository().findByModeloContainingIgnoreCase(model);
         checkEmptyList(res);
         return res;
     }
 
     @Transactional(readOnly = true)
-    public final List<T> searchByFabricante(String fabricante) {
-        List<T> res = getRepository().findByFabricanteContainingIgnoreCase(fabricante);
+    public final List<Type> searchByFabricante(String fabricante) {
+        List<Type> res = getRepository().findByFabricanteContainingIgnoreCase(fabricante);
         checkEmptyList(res);
         return res;
     }
 
     @Transactional(readOnly = true)
-    public final List<T> searchByDataLancamento(LocalDate data) {
-        List<T> res = getRepository().findByDataLancamento(data);
+    public final List<Type> searchByDataLancamento(LocalDate data) {
+        List<Type> res = getRepository().findByDataLancamento(data);
         checkEmptyList(res);
         return res;
     }
 
     @Transactional(readOnly = true)
-    public final List<T> searchByPais(String pais) {
-        List<T> res = getRepository().findByPaisOrigemContainingIgnoreCase(pais);
+    public final List<Type> searchByPais(String pais) {
+        List<Type> res = getRepository().findByPaisOrigemContainingIgnoreCase(pais);
         checkEmptyList(res);
         return res;
     }
 
     @Transactional(readOnly = true)
-    public final T searchById(Long id) {
+    public final Type searchById(Long id) {
         return getRepository().findById(id)
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NULL_FIELD));
     }
 
     @Transactional(readOnly = true)
-    public final List<T> getAll() {
+    public final List<Type> getAll() {
         return getRepository().findAll();
     }
 
-    private void checkEmptyList(List<T> resultSet) {
+    protected void checkEmptyList(List<Type> resultSet) {
         FluentValidator.begin().check(resultSet.isEmpty(), NullErr.NOT_FOUND);
     }
 
@@ -133,13 +133,13 @@ public abstract class HardwareServiceTemplate<T extends Hardware> {
      * @implNote | Interface Abstrata de HardwareService
      */
 
-    protected abstract HardwareRepository<T> getRepository();
+    protected abstract Repository getRepository();
 
-    protected abstract void validateDeviceFields(T hardware);
+    protected abstract void validateDeviceFields(Type hardware);
 
-    protected abstract T save(T hardware);
+    protected abstract Type save(Type hardware);
 
-    protected abstract void applyInheritedUpdates(T current, T incoming);
+    protected abstract void applyInheritedUpdates(Type current, Type incoming);
 
     public abstract void deleteById(Long id);
 }

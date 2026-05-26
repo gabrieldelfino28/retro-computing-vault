@@ -4,18 +4,20 @@ import br.gov.sp.fateczl.museu.domain.entity.Dispositivo;
 import br.gov.sp.fateczl.museu.domain.enums.UnidadeMemoria;
 import br.gov.sp.fateczl.museu.exception.codes.DeviceErr;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
+import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.AppInfo;
 import br.gov.sp.fateczl.museu.util.enums.DeviceComparator;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.List;
 
-public abstract class DispositivoServiceTemplate<T extends Dispositivo> extends HardwareServiceTemplate<T> {
+public abstract class DispositivoServiceTemplate
+        <Type extends Dispositivo, R extends DispositivoRepository<Type>>
+        extends HardwareServiceTemplate<Type, R> {
 
     @Override
-    protected void validateDeviceFields(T d) {
+    protected void validateDeviceFields(Type d) {
         if (d.getSistemaOperacional() == null || d.getSistemaOperacional().isBlank())
             d.setSistemaOperacional(AppInfo.DEFAULT_OS.getInfo());
 
@@ -41,18 +43,13 @@ public abstract class DispositivoServiceTemplate<T extends Dispositivo> extends 
         validateSpecificFields(d);
     }
 
-
-    /**
-     * DispositivoRepository searchBy methods
-     */
-
     @Override
-    protected void applyInheritedUpdates(T current, T incoming) {
+    protected void applyInheritedUpdates(Type current, Type incoming) {
         applyDeviceUpdates(current, incoming);
         applySpecificUpdates(current, incoming);
     }
 
-    private void applyDeviceUpdates(T current, T incoming) {
+    private void applyDeviceUpdates(Type current, Type incoming) {
         current.setCpu(incoming.getCpu());
         current.setSistemaOperacional(incoming.getSistemaOperacional());
         current.setLinguagemEmbutida(incoming.getLinguagemEmbutida());
@@ -69,31 +66,41 @@ public abstract class DispositivoServiceTemplate<T extends Dispositivo> extends 
         current.setEnergia(incoming.getEnergia());
     }
 
-    @Transactional
-    public final List<T> searchByRamMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
+    /**
+     * DispositivoRepository searchBy methods
+     */
+
+    @Transactional(readOnly = true)
+    public final List<Type> searchByCpu(String cpu) {
+        List<Type> set = getRepository().findByCpuContainingIgnoreCase(cpu);
+        checkEmptyList(set);
+        return set;
+    }
+    @Transactional(readOnly = true)
+    public final List<Type> searchByRamMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
         long pesoMinimo = unidade.computeWeight(quantidade);
 
-        List<T> res = getAll()
+        List<Type> res = getAll()
                 .stream()
                 .filter(d -> d.getPesoRam() >= pesoMinimo).toList();
         return sort(res, order);
     }
 
-    @Transactional
-    public final List<T> searchByRomMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
+    @Transactional(readOnly = true)
+    public final List<Type> searchByRomMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
         long pesoMinimo = unidade.computeWeight(quantidade);
 
-        List<T> res = getAll()
+        List<Type> res = getAll()
                 .stream()
                 .filter(d -> d.getPesoRom() >= pesoMinimo).toList();
         return sort(res, order);
     }
 
-    private List<T> sort(List<T> set, DeviceComparator c) {
+    private List<Type> sort(List<Type> set, DeviceComparator c) {
         return set.stream().sorted(c.get()).toList();
     }
 
-    protected abstract void validateSpecificFields(T d);
+    protected abstract void validateSpecificFields(Type d);
 
-    protected abstract void applySpecificUpdates(T current, T incoming);
+    protected abstract void applySpecificUpdates(Type current, Type incoming);
 }
