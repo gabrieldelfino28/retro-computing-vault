@@ -1,6 +1,7 @@
 package br.gov.sp.fateczl.museu.service;
 
 import br.gov.sp.fateczl.museu.domain.entity.Computador;
+import br.gov.sp.fateczl.museu.domain.enums.TipoComputador;
 import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
@@ -10,6 +11,8 @@ import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ComputadorService extends DispositivoServiceTemplate<Computador, ComputadorRepository> {
@@ -27,7 +30,7 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador, Co
 
     @Override
     protected void validateSpecificFields(Computador c) {
-        log.info(LogMessage.VALIDATE.forEntity("Computador"), c.getModelo());
+        log().info(LogMessage.VALIDATE, "Computador", c.getModelo());
         FluentValidator.begin()
                 .notNullObject(c.getTipo(), NullErr.NULL_OBJECT)
                 .notEmpty(c.getExpansibilidade(), HardwareErr.REQUIRED_FIELD)
@@ -39,12 +42,11 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador, Co
     @Override
     @Transactional
     protected Computador save(Computador hardware) {
-        log.info(LogMessage.SAVE, "Computador", hardware.getId());
+        log().info(LogMessage.SAVE, "Computador", hardware.getId());
         return getRepository().save(hardware);
     }
 
     @Override
-    @Transactional
     protected void applySpecificUpdates(Computador existing, Computador incoming) {
         existing.setTipo(incoming.getTipo());
         existing.setExpansibilidade(incoming.getExpansibilidade());
@@ -55,9 +57,23 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador, Co
     @Override
     @Transactional
     public void deleteById(Long id) {
-        Computador c = repository.findById(id)
+        Computador c = getRepository().findById(id)
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
-        log.info(LogMessage.DELETE, "Computador",c.getId());
-        repository.delete(c);
+        log().info(LogMessage.DELETE, "Computador",c.getId());
+        getRepository().delete(c);
+    }
+
+    @Transactional(readOnly = true)
+    public final List<Computador> searchByTipo(TipoComputador tipo) {
+        List<Computador> set = getRepository().findByTipo(tipo);
+        checkEmptyList(set);
+        return set;
+    }
+
+    @Transactional(readOnly = true)
+    public final List<Computador> searchByResolucao(String res) {
+        List<Computador> set = getRepository().findByResolucoesContainingIgnoreCase(res);
+        checkEmptyList(set);
+        return set;
     }
 }

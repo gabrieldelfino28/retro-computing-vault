@@ -10,6 +10,7 @@ import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.Logger;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import br.gov.sp.fateczl.museu.util.logging.MuseumLogger;
+import lombok.extern.java.Log;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -17,21 +18,19 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class HardwareServiceTemplate<Type extends Hardware, Repository extends HardwareRepository<Type>> {
-
-    protected final Logger log;
-
-    protected HardwareServiceTemplate() {
-        this.log = MuseumLogger.of(this.getClass());
+    
+    protected final Logger log() {
+        return MuseumLogger.of(this.getClass());
     }
 
     @Transactional
     public final Type insert(Type hardware, Set<Imagem> imagens) {
-        log.info(LogMessage.RECORD, "Hardware", hardware.getModelo());
+        log().info(LogMessage.RECORD, "Hardware", hardware.getModelo());
         validateHardwareFields(hardware);
 
         if (imagens != null && !imagens.isEmpty()) {
             FluentValidator.begin().limit(imagens, 8, HardwareErr.PHOTO_LIMIT, "Imagens");
-            log.info(LogMessage.RELATION_LINK_BATCH, "Hardware", imagens.size(), "Imagens", hardware.getModelo());
+            log().info(LogMessage.RELATION_LINK_BATCH, "Hardware", imagens.size(), "Imagens", hardware.getModelo());
             imagens.forEach(hardware::addImagem);
         }
         return save(hardware);
@@ -60,7 +59,7 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
     }
 
     public final void update(Type incoming) {
-        log.info(LogMessage.UPDATE, "Hardware", incoming.getId());
+        log().info(LogMessage.UPDATE, "Hardware", incoming.getId());
         Type current = getRepository().findById(incoming.getId())
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
         applyHardwareUpdates(current, incoming);
@@ -88,30 +87,30 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
 
     @Transactional(readOnly = true)
     public final List<Type> searchByModelo(String model) {
-        List<Type> res = getRepository().findByModeloContainingIgnoreCase(model);
-        checkEmptyList(res);
-        return res;
+        List<Type> set = getRepository().findByModeloContainingIgnoreCase(model);
+        checkEmptyList(set);
+        return set;
     }
 
     @Transactional(readOnly = true)
     public final List<Type> searchByFabricante(String fabricante) {
-        List<Type> res = getRepository().findByFabricanteContainingIgnoreCase(fabricante);
-        checkEmptyList(res);
-        return res;
+        List<Type> set = getRepository().findByFabricanteContainingIgnoreCase(fabricante);
+        checkEmptyList(set);
+        return set;
     }
 
     @Transactional(readOnly = true)
     public final List<Type> searchByDataLancamento(LocalDate data) {
-        List<Type> res = getRepository().findByDataLancamento(data);
-        checkEmptyList(res);
-        return res;
+        List<Type> set = getRepository().findByDataLancamento(data);
+        checkEmptyList(set);
+        return set;
     }
 
     @Transactional(readOnly = true)
     public final List<Type> searchByPais(String pais) {
-        List<Type> res = getRepository().findByPaisOrigemContainingIgnoreCase(pais);
-        checkEmptyList(res);
-        return res;
+        List<Type> set = getRepository().findByPaisOrigemContainingIgnoreCase(pais);
+        checkEmptyList(set);
+        return set;
     }
 
     @Transactional(readOnly = true)

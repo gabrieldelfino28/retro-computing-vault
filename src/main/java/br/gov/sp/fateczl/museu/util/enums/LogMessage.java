@@ -1,5 +1,7 @@
 package br.gov.sp.fateczl.museu.util.enums;
 
+import java.util.Arrays;
+
 public enum LogMessage {
     // ─── CRUD ───
     RECORD("Iniciando registro do objeto: {}"),
@@ -83,6 +85,9 @@ public enum LogMessage {
         return wrap(String.format("[%s] %s", entity, this.msg));
     }
 
+    public String errLogger(Object... args) {
+        return wrap(Arrays.toString(args));
+    }
     /**
      * Envolve uma mensagem avulsa com os separadores visuais do padrão de log.
      * Usar quando nenhum {@link LogMessage} encaixar na situação.
@@ -90,6 +95,7 @@ public enum LogMessage {
      * @param message Mensagem livre com placeholders {@code {}} para o SLF4J
      * @return {@code ██████ Mensagem {} ██████}
      */
+
     public static String wrap(String message) {
         return SEPARATOR + message + SEPARATOR;
     }

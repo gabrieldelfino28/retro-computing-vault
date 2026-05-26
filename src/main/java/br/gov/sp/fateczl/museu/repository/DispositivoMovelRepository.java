@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DispositivoMovelRepository extends JpaRepository<DispositivoMovel, Long> {
+public interface DispositivoMovelRepository extends DispositivoRepository<DispositivoMovel> {
 
     List<DispositivoMovel> findByTecnologiaTelaContainingIgnoreCase(String tela);
 

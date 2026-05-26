@@ -2,6 +2,8 @@ package br.gov.sp.fateczl.museu.util;
 
 import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
 import br.gov.sp.fateczl.museu.exception.ErrorInterface;
+import br.gov.sp.fateczl.museu.util.enums.LogMessage;
+import br.gov.sp.fateczl.museu.util.logging.MuseumLogger;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -12,15 +14,21 @@ import java.util.Collection;
 
 public class FluentValidator {
 
-    private FluentValidator() {
-    }
+    private FluentValidator() {}
 
     public static FluentValidator begin() {
         return new FluentValidator();
     }
 
+    private Logger log() {
+        return MuseumLogger.of(this.getClass());
+    }
+
     public FluentValidator check(boolean condition, ErrorInterface err, Object... args) {
-        if (condition) throw new BusinessRuleException(err, args);
+        if (condition) {
+            log().err(LogMessage.VALIDATE_FAIL.errLogger(args));
+            throw new BusinessRuleException(err, args);
+        }
         return this;
     }
 

@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public abstract class DispositivoServiceTemplate
-        <Type extends Dispositivo, R extends DispositivoRepository<Type>>
-        extends HardwareServiceTemplate<Type, R> {
+        <Type extends Dispositivo, Repository extends DispositivoRepository<Type>>
+        extends HardwareServiceTemplate<Type, Repository> {
 
     @Override
     protected void validateDeviceFields(Type d) {
@@ -76,6 +76,35 @@ public abstract class DispositivoServiceTemplate
         checkEmptyList(set);
         return set;
     }
+
+    @Transactional(readOnly = true)
+    public final List<Type> searchByRamUnidade(UnidadeMemoria unidade) {
+        List<Type> set = getRepository().findByRamUnidade(unidade);
+        checkEmptyList(set);
+        return set;
+    }
+
+    @Transactional(readOnly = true)
+    public final List<Type> searchByRomUnidade(UnidadeMemoria unidade) {
+        List<Type> set = getRepository().findByRomUnidade(unidade);
+        checkEmptyList(set);
+        return set;
+    }
+
+    @Transactional(readOnly = true)
+    public final List<Type> searchBySistemaOperacional(String OS) {
+        List<Type> set = getRepository().findBySistemaOperacionalContainingIgnoreCase(OS);
+        checkEmptyList(set);
+        return set;
+    }
+
+    @Transactional(readOnly = true)
+    public final List<Type> searchByLinguagem(String linguagem) {
+        List<Type> set = getRepository().findByLinguagemEmbutidaContainingIgnoreCase(linguagem);
+        checkEmptyList(set);
+        return set;
+    }
+
     @Transactional(readOnly = true)
     public final List<Type> searchByRamMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
         long pesoMinimo = unidade.computeWeight(quantidade);
@@ -96,7 +125,7 @@ public abstract class DispositivoServiceTemplate
         return sort(res, order);
     }
 
-    private List<Type> sort(List<Type> set, DeviceComparator c) {
+    protected List<Type> sort(List<Type> set, DeviceComparator c) {
         return set.stream().sorted(c.get()).toList();
     }
 
