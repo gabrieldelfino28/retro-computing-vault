@@ -10,7 +10,7 @@ public final class MuseumLogger {
 
     private MuseumLogger() {}
 
-    public static Logger of(Class<?> clazz) {
-        return new AppLogger(clazz);
+    public static Logger of(Class<?> type) {
+        return new AppLogger(type);
     }
 }

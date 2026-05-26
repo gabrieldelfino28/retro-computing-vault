@@ -17,8 +17,8 @@ class AppLogger implements Logger {
 
     private final org.slf4j.Logger log;
 
-    AppLogger(Class<?> clazz) {
-        this.log = LoggerFactory.getLogger(clazz);
+    AppLogger(Class<?> type) {
+        this.log = LoggerFactory.getLogger(type);
     }
 
     @Override
