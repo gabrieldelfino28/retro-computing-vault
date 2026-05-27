@@ -64,14 +64,14 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador, Co
     }
 
     @Transactional(readOnly = true)
-    public final List<Computador> searchByTipo(TipoComputador tipo) {
+    public List<Computador> searchByTipo(TipoComputador tipo) {
         List<Computador> set = getRepository().findByTipo(tipo);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Computador> searchByResolucao(String res) {
+    public List<Computador> searchByResolucao(String res) {
         List<Computador> set = getRepository().findByResolucoesContainingIgnoreCase(res);
         checkEmptyList(set);
         return set;

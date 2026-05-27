@@ -10,7 +10,6 @@ import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.Logger;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import br.gov.sp.fateczl.museu.util.logging.MuseumLogger;
-import lombok.extern.java.Log;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -24,7 +23,7 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
     }
 
     @Transactional
-    public final Type insert(Type hardware, Set<Imagem> imagens) {
+    public Type insert(Type hardware, Set<Imagem> imagens) {
         log().info(LogMessage.RECORD, "Hardware", hardware.getModelo());
         validateHardwareFields(hardware);
 
@@ -58,7 +57,8 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
         validateDeviceFields(h);
     }
 
-    public final void update(Type incoming) {
+    @Transactional
+    public void update(Type incoming) {
         log().info(LogMessage.UPDATE, "Hardware", incoming.getId());
         Type current = getRepository().findById(incoming.getId())
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
@@ -86,41 +86,41 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
      */
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByModelo(String model) {
+    public List<Type> searchByModelo(String model) {
         List<Type> set = getRepository().findByModeloContainingIgnoreCase(model);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByFabricante(String fabricante) {
+    public List<Type> searchByFabricante(String fabricante) {
         List<Type> set = getRepository().findByFabricanteContainingIgnoreCase(fabricante);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByDataLancamento(LocalDate data) {
+    public List<Type> searchByDataLancamento(LocalDate data) {
         List<Type> set = getRepository().findByDataLancamento(data);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByPais(String pais) {
+    public List<Type> searchByPais(String pais) {
         List<Type> set = getRepository().findByPaisOrigemContainingIgnoreCase(pais);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final Type searchById(Long id) {
+    public Type searchById(Long id) {
         return getRepository().findById(id)
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NULL_FIELD));
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> getAll() {
+    public List<Type> getAll() {
         return getRepository().findAll();
     }
 

@@ -71,42 +71,42 @@ public abstract class DispositivoServiceTemplate
      */
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByCpu(String cpu) {
+    public List<Type> searchByCpu(String cpu) {
         List<Type> set = getRepository().findByCpuContainingIgnoreCase(cpu);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByRamUnidade(UnidadeMemoria unidade) {
+    public List<Type> searchByRamUnidade(UnidadeMemoria unidade) {
         List<Type> set = getRepository().findByRamUnidade(unidade);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByRomUnidade(UnidadeMemoria unidade) {
+    public List<Type> searchByRomUnidade(UnidadeMemoria unidade) {
         List<Type> set = getRepository().findByRomUnidade(unidade);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchBySistemaOperacional(String OS) {
+    public List<Type> searchBySistemaOperacional(String OS) {
         List<Type> set = getRepository().findBySistemaOperacionalContainingIgnoreCase(OS);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByLinguagem(String linguagem) {
+    public List<Type> searchByLinguagem(String linguagem) {
         List<Type> set = getRepository().findByLinguagemEmbutidaContainingIgnoreCase(linguagem);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByRamMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
+    public List<Type> searchByRamMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
         long pesoMinimo = unidade.computeWeight(quantidade);
 
         List<Type> res = getAll()
@@ -116,7 +116,7 @@ public abstract class DispositivoServiceTemplate
     }
 
     @Transactional(readOnly = true)
-    public final List<Type> searchByRomMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
+    public List<Type> searchByRomMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
         long pesoMinimo = unidade.computeWeight(quantidade);
 
         List<Type> res = getAll()

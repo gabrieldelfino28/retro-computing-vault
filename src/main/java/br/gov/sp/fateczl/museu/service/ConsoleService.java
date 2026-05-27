@@ -59,21 +59,21 @@ public class ConsoleService extends DispositivoServiceTemplate<Console, ConsoleR
     }
 
     @Transactional(readOnly = true)
-    public final List<Console> searchByTipo(TipoConsole tipo) {
+    public List<Console> searchByTipo(TipoConsole tipo) {
         List<Console> set = getRepository().findByTipo(tipo);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Console> searchByGeraco(String geracao) {
+    public List<Console> searchByGeraco(String geracao) {
         List<Console> set = getRepository().findByGeracaoContainingIgnoreCase(geracao);
         checkEmptyList(set);
         return set;
     }
 
     @Transactional(readOnly = true)
-    public final List<Console> searchBySinal(String regiaoSinal) {
+    public List<Console> searchBySinal(String regiaoSinal) {
         List<Console> set = getRepository().findByRegiaoSinalContainingIgnoreCase(regiaoSinal);
         checkEmptyList(set);
         return set;
