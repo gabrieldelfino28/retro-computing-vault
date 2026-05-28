@@ -9,10 +9,12 @@ import br.gov.sp.fateczl.museu.repository.ConsoleRepository;
 import br.gov.sp.fateczl.museu.service.template.DispositivoServiceTemplate;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class ConsoleService extends DispositivoServiceTemplate<Console, ConsoleRepository> {
 
     private final ConsoleRepository repository;
@@ -27,12 +29,12 @@ public class ConsoleService extends DispositivoServiceTemplate<Console, ConsoleR
     }
 
     @Override
-    protected void validateSpecificFields(Console d) {
-        log().info(LogMessage.VALIDATE, "Console", d.getModelo());
+    protected void validateSpecificFields(Console c) {
+        log().info(LogMessage.VALIDATE, "Console", c.getModelo());
         FluentValidator.begin()
-                .notEmpty(d.getGerecao(), HardwareErr.REQUIRED_FIELD)
-                .notEmpty(d.getRegiaoSinal(), HardwareErr.REQUIRED_FIELD)
-                .notNullObject(d.getTipo(), NullErr.NULL_OBJECT);
+                .notEmpty(c.getGerecao(), HardwareErr.REQUIRED_FIELD)
+                .notEmpty(c.getRegiaoSinal(), HardwareErr.REQUIRED_FIELD)
+                .notNullObject(c.getTipo(), NullErr.NULL_OBJECT);
     }
 
     @Override
@@ -52,30 +54,30 @@ public class ConsoleService extends DispositivoServiceTemplate<Console, ConsoleR
     @Override
     @Transactional
     public void deleteById(Long id) {
-        Console c = getRepository().findById(id)
+        var console = getRepository().findById(id)
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
-        log().info(LogMessage.DELETE, "Console", c.getId());
-        getRepository().delete(c);
+        log().info(LogMessage.DELETE, "Console", console.getId());
+        getRepository().delete(console);
     }
 
     @Transactional(readOnly = true)
     public List<Console> searchByTipo(TipoConsole tipo) {
-        List<Console> set = getRepository().findByTipo(tipo);
-        checkEmptyList(set);
-        return set;
+        var consoles = getRepository().findByTipo(tipo);
+        checkEmptyList(consoles);
+        return consoles;
     }
 
     @Transactional(readOnly = true)
     public List<Console> searchByGeraco(String geracao) {
-        List<Console> set = getRepository().findByGeracaoContainingIgnoreCase(geracao);
-        checkEmptyList(set);
-        return set;
+        var consoles = getRepository().findByGeracaoContainingIgnoreCase(geracao);
+        checkEmptyList(consoles);
+        return consoles;
     }
 
     @Transactional(readOnly = true)
     public List<Console> searchBySinal(String regiaoSinal) {
-        List<Console> set = getRepository().findByRegiaoSinalContainingIgnoreCase(regiaoSinal);
-        checkEmptyList(set);
-        return set;
+        var consoles = getRepository().findByRegiaoSinalContainingIgnoreCase(regiaoSinal);
+        checkEmptyList(consoles);
+        return consoles;
     }
 }

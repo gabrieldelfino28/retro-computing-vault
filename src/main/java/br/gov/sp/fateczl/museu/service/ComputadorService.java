@@ -57,23 +57,28 @@ public class ComputadorService extends DispositivoServiceTemplate<Computador, Co
     @Override
     @Transactional
     public void deleteById(Long id) {
-        Computador c = getRepository().findById(id)
+        var comp = getRepository().findById(id)
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
-        log().info(LogMessage.DELETE, "Computador",c.getId());
-        getRepository().delete(c);
+        log().info(LogMessage.DELETE, "Computador", comp.getId());
+        getRepository().delete(comp);
     }
+
+    /**
+     * @implNote
+     * SearchBy methods implementing ComputadorRepository specific fields
+     */
 
     @Transactional(readOnly = true)
     public List<Computador> searchByTipo(TipoComputador tipo) {
-        List<Computador> set = getRepository().findByTipo(tipo);
-        checkEmptyList(set);
-        return set;
+        var computers = getRepository().findByTipo(tipo);
+        checkEmptyList(computers);
+        return computers;
     }
 
     @Transactional(readOnly = true)
     public List<Computador> searchByResolucao(String res) {
-        List<Computador> set = getRepository().findByResolucoesContainingIgnoreCase(res);
-        checkEmptyList(set);
-        return set;
+        var computers = getRepository().findByResolucoesContainingIgnoreCase(res);
+        checkEmptyList(computers);
+        return computers;
     }
 }

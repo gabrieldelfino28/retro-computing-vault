@@ -18,9 +18,7 @@ import java.util.Set;
 
 public abstract class HardwareServiceTemplate<Type extends Hardware, Repository extends HardwareRepository<Type>> {
     
-    protected final Logger log() {
-        return MuseumLogger.of(this.getClass());
-    }
+    protected final Logger log() { return MuseumLogger.of(this.getClass()); }
 
     @Transactional
     public Type insert(Type hardware, Set<Imagem> imagens) {
@@ -64,7 +62,6 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
         applyHardwareUpdates(current, incoming);
         applyInheritedUpdates(current, incoming);
-
         save(current);
     }
 
