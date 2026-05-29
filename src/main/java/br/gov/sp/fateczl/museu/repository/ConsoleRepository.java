@@ -1,9 +1,7 @@
 package br.gov.sp.fateczl.museu.repository;
 
 import br.gov.sp.fateczl.museu.domain.entity.Console;
-import br.gov.sp.fateczl.museu.domain.entity.Dispositivo;
 import br.gov.sp.fateczl.museu.domain.enums.TipoConsole;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

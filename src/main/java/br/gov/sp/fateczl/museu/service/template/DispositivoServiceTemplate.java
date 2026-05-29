@@ -5,6 +5,7 @@ import br.gov.sp.fateczl.museu.domain.enums.UnidadeMemoria;
 import br.gov.sp.fateczl.museu.exception.codes.DeviceErr;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
+import br.gov.sp.fateczl.museu.service.DispositivoService;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.AppInfo;
 import br.gov.sp.fateczl.museu.util.enums.DeviceComparator;
@@ -14,7 +15,8 @@ import java.util.List;
 
 public abstract class DispositivoServiceTemplate
         <Type extends Dispositivo, Repository extends DispositivoRepository<Type>>
-        extends HardwareServiceTemplate<Type, Repository> {
+        extends HardwareServiceTemplate<Type, Repository>
+        implements DispositivoService<Type> {
 
     @Override
     protected void validateDeviceFields(Type d) {
@@ -38,7 +40,7 @@ public abstract class DispositivoServiceTemplate
                 .check(d.getRamQuantidade() == null || d.getRamQuantidade() <= 0, DeviceErr.RAM_INVALID_QUANTITY)
 
                 .notNullObject(d.getRomUnidade(), DeviceErr.ROM_UNIT_REQUIRED)
-                .check(d.getRomQuantidade() == null || d.getRamQuantidade() <= 0, DeviceErr.ROM_INVALID_QUANTITY)
+                .check(d.getRomQuantidade() == null || d.getRomQuantidade() <= 0, DeviceErr.ROM_INVALID_QUANTITY)
         ;
         validateSpecificFields(d);
     }
@@ -71,6 +73,7 @@ public abstract class DispositivoServiceTemplate
      */
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByCpu(String cpu) {
         List<Type> set = getRepository().findByCpuContainingIgnoreCase(cpu);
         checkEmptyList(set);
@@ -78,6 +81,7 @@ public abstract class DispositivoServiceTemplate
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByRamUnidade(UnidadeMemoria unidade) {
         List<Type> set = getRepository().findByRamUnidade(unidade);
         checkEmptyList(set);
@@ -85,6 +89,7 @@ public abstract class DispositivoServiceTemplate
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByRomUnidade(UnidadeMemoria unidade) {
         List<Type> set = getRepository().findByRomUnidade(unidade);
         checkEmptyList(set);
@@ -92,6 +97,7 @@ public abstract class DispositivoServiceTemplate
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchBySistemaOperacional(String OS) {
         List<Type> set = getRepository().findBySistemaOperacionalContainingIgnoreCase(OS);
         checkEmptyList(set);
@@ -99,6 +105,7 @@ public abstract class DispositivoServiceTemplate
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByLinguagem(String linguagem) {
         List<Type> set = getRepository().findByLinguagemEmbutidaContainingIgnoreCase(linguagem);
         checkEmptyList(set);
@@ -106,6 +113,7 @@ public abstract class DispositivoServiceTemplate
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByRamMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
         long pesoMinimo = unidade.computeWeight(quantidade);
 
@@ -116,6 +124,7 @@ public abstract class DispositivoServiceTemplate
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByRomMinima(UnidadeMemoria unidade, Integer quantidade, DeviceComparator order) {
         long pesoMinimo = unidade.computeWeight(quantidade);
 

@@ -1,4 +1,4 @@
-package br.gov.sp.fateczl.museu.service;
+package br.gov.sp.fateczl.museu.service.impl;
 
 import br.gov.sp.fateczl.museu.domain.entity.Console;
 import br.gov.sp.fateczl.museu.domain.enums.TipoConsole;
@@ -15,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class ConsoleService extends DispositivoServiceTemplate<Console, ConsoleRepository> {
+public class ConsoleServiceImpl extends DispositivoServiceTemplate<Console, ConsoleRepository> {
 
     private final ConsoleRepository repository;
 
-    public ConsoleService(ConsoleRepository repository) {
+    public ConsoleServiceImpl(ConsoleRepository repository) {
         this.repository = repository;
     }
 

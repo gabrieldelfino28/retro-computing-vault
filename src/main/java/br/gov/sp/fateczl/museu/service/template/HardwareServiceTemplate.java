@@ -6,6 +6,7 @@ import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.HardwareRepository;
+import br.gov.sp.fateczl.museu.service.IHardwareService;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.Logger;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
@@ -16,11 +17,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-public abstract class HardwareServiceTemplate<Type extends Hardware, Repository extends HardwareRepository<Type>> {
+public abstract class HardwareServiceTemplate
+        <Type extends Hardware, Repository extends HardwareRepository<Type>>
+        implements IHardwareService<Type> {
     
     protected final Logger log() { return MuseumLogger.of(this.getClass()); }
 
     @Transactional
+    @Override
     public Type insert(Type hardware, Set<Imagem> imagens) {
         log().info(LogMessage.RECORD, "Hardware", hardware.getModelo());
         validateHardwareFields(hardware);
@@ -56,6 +60,7 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
     }
 
     @Transactional
+    @Override
     public void update(Type incoming) {
         log().info(LogMessage.UPDATE, "Hardware", incoming.getId());
         Type current = getRepository().findById(incoming.getId())
@@ -83,6 +88,7 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
      */
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByModelo(String model) {
         List<Type> set = getRepository().findByModeloContainingIgnoreCase(model);
         checkEmptyList(set);
@@ -90,6 +96,7 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByFabricante(String fabricante) {
         List<Type> set = getRepository().findByFabricanteContainingIgnoreCase(fabricante);
         checkEmptyList(set);
@@ -97,6 +104,7 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByDataLancamento(LocalDate data) {
         List<Type> set = getRepository().findByDataLancamento(data);
         checkEmptyList(set);
@@ -104,6 +112,7 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> searchByPais(String pais) {
         List<Type> set = getRepository().findByPaisOrigemContainingIgnoreCase(pais);
         checkEmptyList(set);
@@ -111,12 +120,14 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
     }
 
     @Transactional(readOnly = true)
+    @Override
     public Type searchById(Long id) {
         return getRepository().findById(id)
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NULL_FIELD));
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Type> getAll() {
         return getRepository().findAll();
     }
@@ -137,5 +148,4 @@ public abstract class HardwareServiceTemplate<Type extends Hardware, Repository 
 
     protected abstract void applyInheritedUpdates(Type current, Type incoming);
 
-    public abstract void deleteById(Long id);
 }

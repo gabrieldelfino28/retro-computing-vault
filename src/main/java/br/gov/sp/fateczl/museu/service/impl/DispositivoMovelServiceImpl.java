@@ -1,4 +1,4 @@
-package br.gov.sp.fateczl.museu.service;
+package br.gov.sp.fateczl.museu.service.impl;
 
 import br.gov.sp.fateczl.museu.domain.entity.DispositivoMovel;
 import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class DispositivoMovelService extends DispositivoServiceTemplate<DispositivoMovel, DispositivoMovelRepository> {
+public class DispositivoMovelServiceImpl extends DispositivoServiceTemplate<DispositivoMovel, DispositivoMovelRepository> {
 
     private final DispositivoMovelRepository repository;
 
-    public DispositivoMovelService(DispositivoMovelRepository repository) {
+    public DispositivoMovelServiceImpl(DispositivoMovelRepository repository) {
         this.repository = repository;
     }
 
@@ -36,6 +36,7 @@ public class DispositivoMovelService extends DispositivoServiceTemplate<Disposit
      * @return repository.save(hardware)
      */
     @Override
+    @Transactional
     protected DispositivoMovel save(DispositivoMovel hardware) {
         log().info(LogMessage.SAVE, "Dispositivo Movel", hardware.getId());
         return getRepository().save(hardware);
@@ -45,6 +46,7 @@ public class DispositivoMovelService extends DispositivoServiceTemplate<Disposit
      * @param id
      */
     @Override
+    @Transactional
     public void deleteById(Long id) {
         var device = getRepository().findById(id)
                 .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
