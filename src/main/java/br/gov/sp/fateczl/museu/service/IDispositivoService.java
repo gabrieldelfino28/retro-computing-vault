@@ -2,13 +2,12 @@ package br.gov.sp.fateczl.museu.service;
 
 import br.gov.sp.fateczl.museu.domain.entity.Dispositivo;
 import br.gov.sp.fateczl.museu.domain.enums.UnidadeMemoria;
-import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
 import br.gov.sp.fateczl.museu.util.enums.DeviceComparator;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface DispositivoService<Type extends Dispositivo> extends IHardwareService<Type> {
+public interface IDispositivoService<Type extends Dispositivo> extends IHardwareService<Type> {
 
     @Transactional(readOnly = true)
     List<Type> searchByCpu(String cpu);

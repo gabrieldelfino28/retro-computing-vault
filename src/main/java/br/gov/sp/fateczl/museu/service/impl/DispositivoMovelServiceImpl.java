@@ -30,6 +30,11 @@ public class DispositivoMovelServiceImpl extends DispositivoServiceTemplate<Disp
         return this.repository;
     }
 
+    @Override
+    protected void validateBusinessRules(DispositivoMovel hardware) {
+
+    }
+
     /**
      * @param hardware
      * Receiving harware entity to persist it on the database
@@ -38,39 +43,23 @@ public class DispositivoMovelServiceImpl extends DispositivoServiceTemplate<Disp
     @Override
     @Transactional
     protected DispositivoMovel save(DispositivoMovel hardware) {
-        log().info(LogMessage.SAVE, "Dispositivo Movel", hardware.getId());
-        return getRepository().save(hardware);
+        log().info(LogMessage.SAVE, entity(), hardware.getId());
+        return repository.save(hardware);
     }
 
-    /**
-     * @param id
-     */
     @Override
     @Transactional
     public void deleteById(Long id) {
-        var device = getRepository().findById(id)
-                .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
-        log().info(LogMessage.DELETE, "Dispositivo Movel", device.getId());
-        getRepository().delete(device);
-    }
-
-    /**
-     * @param d
-     */
-    @Override
-    protected void validateSpecificFields(DispositivoMovel d) {
-        log().info(LogMessage.VALIDATE, "Dispositivo Movel", d.getModelo());
-        FluentValidator.begin()
-                .notNullObject(d.getPolegadasTela(), HardwareErr.REQUIRED_FIELD)
-                .notEmpty(d.getTecnologiaTela(), HardwareErr.REQUIRED_FIELD)
-                .notNullObject(d.getBateriaMah(), HardwareErr.REQUIRED_FIELD)
-                .notEmpty(d.getCameras(), HardwareErr.REQUIRED_FIELD)
-                .notEmpty(d.getSensores(), HardwareErr.REQUIRED_FIELD);
+        var device = orElseNotFound(repository.findById(id));
+        log().info(LogMessage.DELETE, entity(), device.getId());
+        repository.delete(device);
     }
 
     /**
      * @param current
+     * Current entity that needs to updated
      * @param incoming
+     * Entity that has the updated date from the front-end
      */
     @Override
     protected void applySpecificUpdates(DispositivoMovel current, DispositivoMovel incoming) {
@@ -88,15 +77,11 @@ public class DispositivoMovelServiceImpl extends DispositivoServiceTemplate<Disp
 
     @Transactional(readOnly = true)
     public List<DispositivoMovel> searchByTecnologiaTela(String tela) {
-        var mobileDevices = getRepository().findByTecnologiaTelaContainingIgnoreCase(tela);
-        checkEmptyList(mobileDevices);
-        return mobileDevices;
+        return orElseNotFound(repository.findByTecnologiaTelaContainingIgnoreCase(tela));
     }
 
     @Transactional(readOnly = true)
     public List<DispositivoMovel> searchByBateriaMaH(Integer mah) {
-        var mobileDevices = getRepository().findByBateriaMah(mah);
-        checkEmptyList(mobileDevices);
-        return mobileDevices;
+        return orElseNotFound(repository.findByBateriaMah(mah));
     }
 }

@@ -1,10 +1,14 @@
 package br.gov.sp.fateczl.museu.domain.entity;
 
+import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
+import br.gov.sp.fateczl.museu.exception.codes.NullErr;
+import br.gov.sp.fateczl.museu.util.FluentValidator;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +18,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 @Entity
+@FieldNameConstants
 public class PrecoConversao {
 
     @Id
@@ -37,4 +42,16 @@ public class PrecoConversao {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hardward")
     private Hardware idHardward;
+
+    public void validate() {
+        FluentValidator.begin()
+                .notNullObject(moedaAtualIso, NullErr.NULL_OBJECT,  Fields.moedaAtualIso)
+                .notNullObject(dataConversao, NullErr.NULL_FIELD,   Fields.dataConversao)
+                .notEmpty(observacao,         NullErr.NULL_FIELD,   Fields.observacao)
+                .notNullObject(idHardward,    NullErr.NULL_OBJECT,  Fields.idHardward)
+                .ifPresent(valorAtual, v ->
+                        v.isPositive(valorAtual, HardwareErr.NEGATIVE_VALUE, Fields.valorAtual)
+                )
+        ;
+    }
 }

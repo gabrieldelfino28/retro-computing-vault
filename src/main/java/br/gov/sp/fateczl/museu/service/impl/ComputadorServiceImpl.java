@@ -2,13 +2,9 @@ package br.gov.sp.fateczl.museu.service.impl;
 
 import br.gov.sp.fateczl.museu.domain.entity.Computador;
 import br.gov.sp.fateczl.museu.domain.enums.TipoComputador;
-import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
-import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
-import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.ComputadorRepository;
 import br.gov.sp.fateczl.museu.service.ComputadorService;
 import br.gov.sp.fateczl.museu.service.template.DispositivoServiceTemplate;
-import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,28 +21,28 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
         return this.repository;
     }
 
+    @Override
+    protected void validateBusinessRules(Computador c) {
+
+    }
+
     public ComputadorServiceImpl(ComputadorRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    protected void validateSpecificFields(Computador c) {
-        log().info(LogMessage.VALIDATE, "Computador", c.getModelo());
-        FluentValidator.begin()
-                .notNullObject(c.getTipo(), NullErr.NULL_OBJECT)
-                .notEmpty(c.getExpansibilidade(), HardwareErr.REQUIRED_FIELD)
-                .notEmpty(c.getTecladoDescricao(), HardwareErr.REQUIRED_FIELD)
-                .notEmpty(c.getResolucoes(), HardwareErr.REQUIRED_FIELD)
-        ;
-    }
-
-    @Override
     @Transactional
-    protected Computador save(Computador hardware) {
-        log().info(LogMessage.SAVE, "Computador", hardware.getId());
-        return getRepository().save(hardware);
+    protected Computador save(Computador c) {
+        log().info(LogMessage.SAVE, entity(), c.getId());
+        return repository.save(c);
     }
 
+    /**
+     * @param existing
+     * Current existing entity that needs to updated
+     * @param incoming
+     * Entity that has the updated date from the front-end
+     */
     @Override
     protected void applySpecificUpdates(Computador existing, Computador incoming) {
         existing.setTipo(incoming.getTipo());
@@ -58,10 +54,9 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
     @Override
     @Transactional
     public void deleteById(Long id) {
-        var comp = getRepository().findById(id)
-                .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
-        log().info(LogMessage.DELETE, "Computador", comp.getId());
-        getRepository().delete(comp);
+        var comp = orElseNotFound(repository.findById(id));
+        log().info(LogMessage.DELETE, entity(), comp.getId());
+        repository.delete(comp);
     }
 
     /**
@@ -72,16 +67,12 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
     @Override
     @Transactional(readOnly = true)
     public List<Computador> searchByTipo(TipoComputador tipo) {
-        var computers = getRepository().findByTipo(tipo);
-        checkEmptyList(computers);
-        return computers;
+        return orElseNotFound(repository.findByTipo(tipo));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Computador> searchByResolucao(String res) {
-        var computers = getRepository().findByResolucoesContainingIgnoreCase(res);
-        checkEmptyList(computers);
-        return computers;
+        return orElseNotFound(repository.findByResolucoesContainingIgnoreCase(res));
     }
 }

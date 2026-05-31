@@ -1,6 +1,8 @@
 package br.gov.sp.fateczl.museu.domain.entity;
 
 import br.gov.sp.fateczl.museu.domain.enums.TipoConsole;
+import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
+import br.gov.sp.fateczl.museu.util.FluentValidator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 
 @Getter
@@ -16,6 +19,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @ToString
 @NoArgsConstructor
+@FieldNameConstants
 @SuperBuilder(toBuilder = true)
 public class Console extends Dispositivo{
 
@@ -28,4 +32,15 @@ public class Console extends Dispositivo{
 
     @Column(name="regiao_sinal", length = 30)
     private String regiaoSinal;
+
+    @Override
+    public void validate() {
+        super.validate();
+
+        FluentValidator.begin()
+                .notEmpty(gerecao,      HardwareErr.REQUIRED_FIELD, Fields.gerecao)
+                .notNullObject(tipo,    HardwareErr.REQUIRED_FIELD, Fields.tipo)
+                .notEmpty(regiaoSinal,  HardwareErr.REQUIRED_FIELD, Fields.regiaoSinal)
+        ;
+    }
 }

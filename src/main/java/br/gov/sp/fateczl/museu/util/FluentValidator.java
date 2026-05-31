@@ -7,6 +7,7 @@ import br.gov.sp.fateczl.museu.util.logging.MuseumLogger;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.function.Consumer;
 
 /**
  * This Class is OPEN to edit. | Esta Classe está aberta a edição.
@@ -58,5 +59,19 @@ public class FluentValidator {
 
     public FluentValidator isGreaterThanZero(Number value, ErrorInterface error, Object... args) {
         return check(value != null && value.doubleValue() <= 0, error, args);
+    }
+
+    public <T> FluentValidator ifPresent(T value, Consumer<FluentValidator> validation) {
+        if (value != null) {
+            validation.accept(this);
+        }
+        return this;
+    }
+
+    public FluentValidator ifPresent(String value, Consumer<FluentValidator> validation) {
+        if (value != null && !value.isBlank()) {
+            validation.accept(this);
+        }
+        return this;
     }
 }

@@ -6,10 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface ComputadorService extends DispositivoService<Computador> {
-    @Override
-    @Transactional
-    void deleteById(Long id);
+public interface ComputadorService extends IDispositivoService<Computador> {
 
     @Transactional(readOnly = true)
     List<Computador> searchByTipo(TipoComputador tipo);

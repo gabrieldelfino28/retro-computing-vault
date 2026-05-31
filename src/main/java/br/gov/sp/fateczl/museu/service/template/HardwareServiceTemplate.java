@@ -2,15 +2,13 @@ package br.gov.sp.fateczl.museu.service.template;
 
 import br.gov.sp.fateczl.museu.domain.entity.Hardware;
 import br.gov.sp.fateczl.museu.domain.entity.Imagem;
-import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.HardwareRepository;
 import br.gov.sp.fateczl.museu.service.IHardwareService;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
-import br.gov.sp.fateczl.museu.util.Logger;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
-import br.gov.sp.fateczl.museu.util.logging.MuseumLogger;
+import br.gov.sp.fateczl.museu.util.service.ServiceSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -19,52 +17,33 @@ import java.util.Set;
 
 public abstract class HardwareServiceTemplate
         <Type extends Hardware, Repository extends HardwareRepository<Type>>
-        implements IHardwareService<Type> {
-    
-    protected final Logger log() { return MuseumLogger.of(this.getClass()); }
+        implements IHardwareService<Type>, ServiceSupport {
 
-    @Transactional
     @Override
-    public Type insert(Type hardware, Set<Imagem> imagens) {
-        log().info(LogMessage.RECORD, "Hardware", hardware.getModelo());
+    @Transactional
+    public Type insert(Type hardware, Set<Imagem> imgs) {
+        log().info(LogMessage.RECORD, entity(), hardware.getModelo());
         validateHardwareFields(hardware);
+        validateBusinessRules(hardware);
 
-        if (imagens != null && !imagens.isEmpty()) {
-            FluentValidator.begin().limit(imagens, 8, HardwareErr.PHOTO_LIMIT, "Imagens");
-            log().info(LogMessage.RELATION_LINK_BATCH, "Hardware", imagens.size(), "Imagens", hardware.getModelo());
-            imagens.forEach(hardware::addImagem);
+        if (imgs != null && !imgs.isEmpty()) {
+            FluentValidator.begin().limit(imgs, 8, HardwareErr.PHOTO_LIMIT, collection(imgs));
+            log().info(LogMessage.RELATION_LINK_BATCH, entity(), imgs.size(), collection(imgs), hardware.getModelo());
+            imgs.forEach(hardware::addImagem);
         }
         return save(hardware);
     }
 
     private void validateHardwareFields(Type h) {
-        FluentValidator.begin()
-                .notNullObject(h, NullErr.NULL_OBJECT, "Hardware")
-
-                .notEmpty(h.getModelo(), HardwareErr.REQUIRED_FIELD, "modelo")
-                .notEmpty(h.getFabricante(), HardwareErr.REQUIRED_FIELD, "fabricante")
-                .notEmpty(h.getDescricao(), HardwareErr.REQUIRED_FIELD, "descrição")
-                .notEmpty(h.getPaisOrigem(), HardwareErr.REQUIRED_FIELD, "país_origem")
-                .notEmpty(h.getLinhaProduto(), HardwareErr.REQUIRED_FIELD, "linha_produto")
-
-                .notNullObject(h.getDataLancamento(), HardwareErr.REQUIRED_FIELD, "data de lançamento")
-                .notInFuture(h.getDataLancamento(), HardwareErr.INVALID_DATE, "data de lançamento")
-                .minYear(h.getDataLancamento(), 1940, HardwareErr.ANO_INVALIDO, "data de lançamento")
-
-                .notNullObject(h.getValorOriginal(), HardwareErr.REQUIRED_FIELD, "valor original")
-                .isPositive(h.getValorOriginal(), HardwareErr.NEGATIVE_VALUE, "valor original")
-                .notNullObject(h.getMoedaISO(), NullErr.NULL_OBJECT, "Moeda")
-                .notNullObject(h.getRegistradoPor(), NullErr.NULL_OBJECT, "Usuário")
-        ;
-        validateDeviceFields(h);
+        FluentValidator.begin().notNullObject(h, NullErr.NULL_OBJECT, entity());
+        h.validate();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void update(Type incoming) {
-        log().info(LogMessage.UPDATE, "Hardware", incoming.getId());
-        Type current = getRepository().findById(incoming.getId())
-                .orElseThrow(() -> new BusinessRuleException(NullErr.NOT_FOUND));
+        log().info(LogMessage.UPDATE, entity(), incoming.getId());
+        Type current = orElseNotFound(getRepository().findById(incoming.getId()));
         applyHardwareUpdates(current, incoming);
         applyInheritedUpdates(current, incoming);
         save(current);
@@ -87,54 +66,45 @@ public abstract class HardwareServiceTemplate
      * HardwareRepository searchBy methods
      */
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<Type> searchByModelo(String model) {
-        List<Type> set = getRepository().findByModeloContainingIgnoreCase(model);
-        checkEmptyList(set);
-        return set;
+        return orElseNotFound(getRepository().findByModeloContainingIgnoreCase(model));
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<Type> searchByFabricante(String fabricante) {
-        List<Type> set = getRepository().findByFabricanteContainingIgnoreCase(fabricante);
-        checkEmptyList(set);
-        return set;
+        return orElseNotFound(getRepository().findByFabricanteContainingIgnoreCase(fabricante));
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<Type> searchByDataLancamento(LocalDate data) {
-        List<Type> set = getRepository().findByDataLancamento(data);
-        checkEmptyList(set);
-        return set;
+        return orElseNotFound(getRepository().findByDataLancamento(data));
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<Type> searchByPais(String pais) {
-        List<Type> set = getRepository().findByPaisOrigemContainingIgnoreCase(pais);
-        checkEmptyList(set);
-        return set;
+        return orElseNotFound(getRepository().findByPaisOrigemContainingIgnoreCase(pais));
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public Type searchById(Long id) {
-        return getRepository().findById(id)
-                .orElseThrow(() -> new BusinessRuleException(NullErr.NULL_FIELD));
+        return orElseNotFound(getRepository().findById(id));
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<Type> getAll() {
-        return getRepository().findAll();
+        return orElseNotFound(getRepository().findAll());
     }
 
-    protected void checkEmptyList(List<Type> resultSet) {
-        FluentValidator.begin().check(resultSet.isEmpty(), NullErr.NOT_FOUND);
-    }
+//    protected void checkEmptyList(List<Type> resultSet) {
+//        FluentValidator.begin().check(resultSet.isEmpty(), NullErr.NOT_FOUND);
+//    }
 
     /**
      * @implNote | Interface Abstrata de HardwareService
@@ -142,7 +112,7 @@ public abstract class HardwareServiceTemplate
 
     protected abstract Repository getRepository();
 
-    protected abstract void validateDeviceFields(Type hardware);
+    protected abstract void validateBusinessRules(Type hardware);
 
     protected abstract Type save(Type hardware);
 

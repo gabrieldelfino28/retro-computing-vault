@@ -1,7 +1,10 @@
 package br.gov.sp.fateczl.museu.domain.entity;
 
+import br.gov.sp.fateczl.museu.exception.codes.NullErr;
+import br.gov.sp.fateczl.museu.util.FluentValidator;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -9,6 +12,7 @@ import java.util.UUID;
 @Data
 @ToString
 @Entity
+@FieldNameConstants
 public class Imagem {
 
     @Id
@@ -33,6 +37,16 @@ public class Imagem {
 
     public Imagem() {
         this.uuid = UUID.randomUUID().toString();
+    }
+
+    public void validate() {
+        FluentValidator.begin()
+                .notEmpty(uuid,          NullErr.NULL_FIELD,  Fields.uuid)
+                .notEmpty(url,           NullErr.NULL_FIELD,  Fields.url)
+                .notEmpty(descricao,     NullErr.NULL_FIELD,  Fields.descricao)
+                .notNullObject(hardware, NullErr.NULL_OBJECT, Fields.hardware)
+        // ehPrincipal é boolean primitivo — sempre tem valor
+        ;
     }
 
     @Override
