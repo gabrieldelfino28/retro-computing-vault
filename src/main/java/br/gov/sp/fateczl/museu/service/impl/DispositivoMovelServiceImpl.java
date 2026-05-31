@@ -1,12 +1,8 @@
 package br.gov.sp.fateczl.museu.service.impl;
 
 import br.gov.sp.fateczl.museu.domain.entity.DispositivoMovel;
-import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
-import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
-import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.DispositivoMovelRepository;
 import br.gov.sp.fateczl.museu.service.template.DispositivoServiceTemplate;
-import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
