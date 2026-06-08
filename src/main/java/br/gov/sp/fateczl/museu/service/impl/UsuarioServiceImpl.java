@@ -3,7 +3,7 @@ package br.gov.sp.fateczl.museu.service.impl;
 import br.gov.sp.fateczl.museu.domain.entity.Usuario;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.UsuarioRepository;
-import br.gov.sp.fateczl.museu.service.IService;
+import br.gov.sp.fateczl.museu.service.BaseService;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import br.gov.sp.fateczl.museu.util.service.ServiceSupport;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UsuarioServiceImpl implements ServiceSupport, IService<Usuario, Long> {
+public class UsuarioServiceImpl implements ServiceSupport, BaseService<Usuario, Long> {
 
     private final UsuarioRepository repository;
 

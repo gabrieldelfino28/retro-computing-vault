@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface ComputadorService extends IDispositivoService<Computador> {
+public interface ComputadorService extends DispositivoService<Computador> {
 
     @Transactional(readOnly = true)
     List<Computador> searchByTipo(TipoComputador tipo);

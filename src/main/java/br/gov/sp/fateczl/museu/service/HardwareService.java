@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public interface IHardwareService<Type extends Hardware> extends IService<Type, Long>, ServiceSupport {
+public interface HardwareService<Type extends Hardware> extends BaseService<Type, Long>, ServiceSupport {
     @Transactional
     Type insert(Type hardware, Set<Imagem> imagens);
 

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Year;
 import java.util.List;
 
-public interface MoedaService extends IService<Moeda, String>, ServiceSupport {
+public interface MoedaService extends BaseService<Moeda, String>, ServiceSupport {
     @Transactional
     Moeda insert(Moeda m);
 

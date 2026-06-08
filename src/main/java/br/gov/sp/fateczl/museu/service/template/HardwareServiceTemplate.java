@@ -5,10 +5,9 @@ import br.gov.sp.fateczl.museu.domain.entity.Imagem;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.HardwareRepository;
-import br.gov.sp.fateczl.museu.service.IHardwareService;
+import br.gov.sp.fateczl.museu.service.HardwareService;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
-import br.gov.sp.fateczl.museu.util.service.ServiceSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ import java.util.Set;
 
 public abstract class HardwareServiceTemplate
         <Type extends Hardware, Repository extends HardwareRepository<Type>>
-        implements IHardwareService<Type> {
+        implements HardwareService<Type> {
 
     @Override
     @Transactional

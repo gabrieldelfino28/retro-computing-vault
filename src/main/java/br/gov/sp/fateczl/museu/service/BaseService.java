@@ -4,7 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface IService<E, ID> {
+public interface BaseService<E, ID> {
     @Transactional
     E insert(E entity);
 

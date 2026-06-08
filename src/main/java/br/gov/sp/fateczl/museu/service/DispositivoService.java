@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface IDispositivoService<Type extends Dispositivo> extends IHardwareService<Type> {
+public interface DispositivoService<Type extends Dispositivo> extends HardwareService<Type> {
 
     @Transactional(readOnly = true)
     List<Type> searchByCpu(String cpu);

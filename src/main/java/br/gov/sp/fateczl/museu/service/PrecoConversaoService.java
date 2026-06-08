@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface PrecoConversaoService extends ServiceSupport, IService<PrecoConversao, Integer> {
+public interface PrecoConversaoService extends ServiceSupport, BaseService<PrecoConversao, Integer> {
     @Override
     @Transactional
     PrecoConversao insert(PrecoConversao entity);

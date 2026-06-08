@@ -3,7 +3,7 @@ package br.gov.sp.fateczl.museu.service.template;
 import br.gov.sp.fateczl.museu.domain.entity.Dispositivo;
 import br.gov.sp.fateczl.museu.domain.enums.UnidadeMemoria;
 import br.gov.sp.fateczl.museu.repository.DispositivoRepository;
-import br.gov.sp.fateczl.museu.service.IDispositivoService;
+import br.gov.sp.fateczl.museu.service.DispositivoService;
 import br.gov.sp.fateczl.museu.util.enums.DeviceComparator;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class DispositivoServiceTemplate
         <Type extends Dispositivo, Repository extends DispositivoRepository<Type>>
         extends HardwareServiceTemplate<Type, Repository>
-        implements IDispositivoService<Type> {
+        implements DispositivoService<Type> {
 
     @Override
     protected void applyInheritedUpdates(Type current, Type incoming) {
