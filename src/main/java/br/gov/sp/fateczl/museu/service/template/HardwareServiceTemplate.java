@@ -17,7 +17,7 @@ import java.util.Set;
 
 public abstract class HardwareServiceTemplate
         <Type extends Hardware, Repository extends HardwareRepository<Type>>
-        implements IHardwareService<Type>, ServiceSupport {
+        implements IHardwareService<Type> {
 
     @Override
     @Transactional
