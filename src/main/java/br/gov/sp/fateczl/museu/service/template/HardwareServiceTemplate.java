@@ -39,11 +39,27 @@ public abstract class HardwareServiceTemplate
         h.validate();
     }
 
+    @Transactional
+    public void addImagem(Long hardwareId, Imagem imagem) {
+        var hardware = searchById(hardwareId);
+        FluentValidator.begin()
+                .limit(hardware.getImagens(), 8, HardwareErr.PHOTO_LIMIT, "Imagens");
+        hardware.addImagem(imagem);
+        save(hardware);
+    }
+
+    @Transactional
+    public void removeImagem(Long hardwareId, Long imagemId) {
+        var hardware = searchById(hardwareId);
+        hardware.getImagens().removeIf(img -> img.getId().equals(imagemId));
+        save(hardware);
+    }
+
     @Override
     @Transactional
     public void update(Type incoming) {
         log().info(LogMessage.UPDATE, entity(), incoming.getId());
-        Type current = orElseNotFound(getRepository().findById(incoming.getId()));
+        var current = orElseNotFound(getRepository().findById(incoming.getId()));
         applyHardwareUpdates(current, incoming);
         applyInheritedUpdates(current, incoming);
         save(current);
