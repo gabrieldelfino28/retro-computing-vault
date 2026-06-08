@@ -89,6 +89,4 @@ public abstract class Hardware {
                 .notNullObject(registradoPor, NullErr.NULL_OBJECT, Fields.registradoPor)
         ;
     }
-
-
 }

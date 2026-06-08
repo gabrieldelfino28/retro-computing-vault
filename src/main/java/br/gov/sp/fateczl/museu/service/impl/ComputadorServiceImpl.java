@@ -21,13 +21,13 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
         return this.repository;
     }
 
+    public ComputadorServiceImpl(ComputadorRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     protected void validateBusinessRules(Computador c) {
 
-    }
-
-    public ComputadorServiceImpl(ComputadorRepository repository) {
-        this.repository = repository;
     }
 
     @Override

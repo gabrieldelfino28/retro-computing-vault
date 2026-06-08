@@ -5,15 +5,18 @@ import br.gov.sp.fateczl.museu.domain.entity.Imagem;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public interface IHardwareService<Type extends Hardware> {
+public interface IHardwareService<Type extends Hardware> extends IService<Type, Long> {
     @Transactional
     Type insert(Type hardware, Set<Imagem> imagens);
 
-    @Transactional
-    void update(Type incoming);
+    @Override
+    default Type insert(Type entity) {
+        return insert(entity, Collections.emptySet());
+    }
 
     @Transactional(readOnly = true)
     List<Type> searchByModelo(String model);
@@ -27,12 +30,4 @@ public interface IHardwareService<Type extends Hardware> {
     @Transactional(readOnly = true)
     List<Type> searchByPais(String pais);
 
-    @Transactional(readOnly = true)
-    Type searchById(Long id);
-
-    @Transactional(readOnly = true)
-    List<Type> getAll();
-
-    @Transactional
-    void deleteById(Long id);
 }

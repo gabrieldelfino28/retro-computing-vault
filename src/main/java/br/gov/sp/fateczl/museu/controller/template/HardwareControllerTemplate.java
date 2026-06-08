@@ -45,7 +45,7 @@ public abstract class HardwareControllerTemplate<Type extends Hardware, Service 
             RedirectAttributes attrs) {
 
         if (result.hasErrors()) return getViewPrefix() + "/form";
-        Set<Imagem> imagens = processarImagens(arquivos); // método utilitário
+        Set<Imagem> imagens = processarImagens(arquivos); // metodo utilitário
         getService().insert(hardware, imagens);
         attrs.addFlashAttribute("sucesso", "Cadastrado com sucesso!");
         return "redirect:/" + getViewPrefix();

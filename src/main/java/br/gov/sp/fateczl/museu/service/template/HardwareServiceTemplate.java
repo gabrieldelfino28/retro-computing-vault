@@ -102,10 +102,6 @@ public abstract class HardwareServiceTemplate
         return orElseNotFound(getRepository().findAll());
     }
 
-//    protected void checkEmptyList(List<Type> resultSet) {
-//        FluentValidator.begin().check(resultSet.isEmpty(), NullErr.NOT_FOUND);
-//    }
-
     /**
      * @implNote | Interface Abstrata de HardwareService
      */

@@ -45,7 +45,6 @@ public class Imagem {
                 .notEmpty(url,           NullErr.NULL_FIELD,  Fields.url)
                 .notEmpty(descricao,     NullErr.NULL_FIELD,  Fields.descricao)
                 .notNullObject(hardware, NullErr.NULL_OBJECT, Fields.hardware)
-        // ehPrincipal é boolean primitivo — sempre tem valor
         ;
     }
 
