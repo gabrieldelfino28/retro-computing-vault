@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="campos-hardware">
+
+    <div class="row g-3">
+
+        <!-- Modelo -->
+        <div class="col-md-6">
+            <label class="form-label">Modelo</label>
+            <input type="text" class="form-control"
+                   th:field="*{modelo}" placeholder="Ex: Apple II"/>
+        </div>
+
+        <!-- Fabricante -->
+        <div class="col-md-6">
+            <label class="form-label">Fabricante</label>
+            <input type="text" class="form-control"
+                   th:field="*{fabricante}" placeholder="Ex: Apple"/>
+        </div>
+
+        <!-- Descrição -->
+        <div class="col-12">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-control" rows="3"
+                      th:field="*{descricao}"></textarea>
+        </div>
+
+        <!-- Data de Lançamento -->
+        <div class="col-md-4">
+            <label class="form-label">Data de Lançamento</label>
+            <input type="date" class="form-control"
+                   th:field="*{dataLancamento}"/>
+        </div>
+
+        <!-- País de Origem -->
+        <div class="col-md-4">
+            <label class="form-label">País de Origem</label>
+            <input type="text" class="form-control"
+                   th:field="*{paisOrigem}"/>
+        </div>
+
+        <!-- Linha de Produto -->
+        <div class="col-md-4">
+            <label class="form-label">Linha de Produto</label>
+            <input type="text" class="form-control"
+                   th:field="*{linhaProduto}"/>
+        </div>
+
+        <!-- Valor Original -->
+        <div class="col-md-6">
+            <label class="form-label">Valor Original</label>
+            <input type="number" step="0.01" class="form-control"
+                   th:field="*{valorOriginal}"/>
+        </div>
+
+        <!-- Observação -->
+        <div class="col-12">
+            <label class="form-label">Observação</label>
+            <textarea class="form-control" rows="2"
+                      th:field="*{observacao}"></textarea>
+        </div>
+
+    </div>
+</div>
 </html>

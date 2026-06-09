@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+
+<section layout:fragment="content">
+
+    <!-- Título dinâmico — cadastro ou edição -->
+    <h2 th:text="${computador.id == null}
+        ? 'Cadastrar Computador'
+        : 'Editar Computador'"></h2>
+
+    <form th:action="${computador.id == null}
+                     ? @{/computador/cadastrar}
+                     : @{/computador/editar}"
+          th:object="${computador}"
+          method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+        <!-- Seção Hardware -->
+        <div class="card mb-4">
+            <div class="card-header fw-bold">📋 Informações Gerais</div>
+            <div class="card-body">
+                <div th:replace="~{fragments/form-hardware :: campos-hardware}"></div>
+            </div>
+        </div>
+
+        <!-- Seção Dispositivo  -->
+        <div class="card mb-4">
+            <div class="card-header fw-bold">💾 Especificações Técnicas</div>
+            <div class="card-body">
+                <div th:replace="~{fragments/form-dispositivo :: campos-dispositivo}"></div>
+            </div>
+        </div>
+
+        <!-- Seção Computador (específico)-->
+        <div class="card mb-4">
+            <div class="card-header fw-bold">🖥️ Dados do Computador</div>
+            <div class="card-body">
+                <div class="row g-3">
+
+                    <!-- Tipo -->
+                    <div class="col-md-6">
+                        <label class="form-label">Tipo</label>
+                        <select class="form-select" th:field="*{tipo}">
+                            <option th:each="t : ${tipos}"
+                                    th:value="${t}"
+                                    th:text="${t.name()}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Expansibilidade -->
+                    <div class="col-12">
+                        <label class="form-label">Expansibilidade</label>
+                        <textarea class="form-control" rows="2"
+                                  th:field="*{expansibilidade}"></textarea>
+                    </div>
+
+                    <!-- Teclado -->
+                    <div class="col-12">
+                        <label class="form-label">Teclado</label>
+                        <input type="text" class="form-control"
+                               th:field="*{tecladoDescricao}"/>
+                    </div>
+
+                    <!-- Resoluções -->
+                    <div class="col-12">
+                        <label class="form-label">Resoluções Suportadas</label>
+                        <input type="text" class="form-control"
+                               th:field="*{resolucoes}"/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+                💾 Salvar
+            </button>
+            <a th:href="@{/computador/listar}"
+               class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+
+</section>
+</html>

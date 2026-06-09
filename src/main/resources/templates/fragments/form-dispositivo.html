@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="campos-dispositivo">
+
+    <div class="row g-3">
+
+        <!-- CPU -->
+        <div class="col-md-6">
+            <label class="form-label">CPU</label>
+            <input type="text" class="form-control"
+                   th:field="*{cpu}" placeholder="Ex: MOS 6502"/>
+        </div>
+
+        <!-- Sistema Operacional -->
+        <div class="col-md-6">
+            <label class="form-label">Sistema Operacional</label>
+            <input type="text" class="form-control"
+                   th:field="*{sistemaOperacional}"/>
+        </div>
+
+        <!-- RAM -->
+        <div class="col-md-3">
+            <label class="form-label">RAM — Quantidade</label>
+            <input type="number" class="form-control"
+                   th:field="*{ramQuantidade}"/>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">RAM — Unidade</label>
+            <select class="form-select" th:field="*{ramUnidade}">
+                <option th:each="u : ${T(br.gov.sp.fateczl.museu.domain.enums.UnidadeMemoria).values()}"
+                        th:value="${u}" th:text="${u.nomePlural}"/>
+            </select>
+        </div>
+
+        <!-- ROM -->
+        <div class="col-md-3">
+            <label class="form-label">ROM — Quantidade</label>
+            <input type="number" class="form-control"
+                   th:field="*{romQuantidade}"/>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">ROM — Unidade</label>
+            <select class="form-select" th:field="*{romUnidade}">
+                <option th:each="u : ${T(br.gov.sp.fateczl.museu.domain.enums.UnidadeMemoria).values()}"
+                        th:value="${u}" th:text="${u.nomePlural}"/>
+            </select>
+        </div>
+
+        <!-- Vídeo -->
+        <div class="col-md-6">
+            <label class="form-label">Vídeo</label>
+            <input type="text" class="form-control" th:field="*{video}"/>
+        </div>
+
+        <!-- Áudio -->
+        <div class="col-md-6">
+            <label class="form-label">Áudio</label>
+            <input type="text" class="form-control" th:field="*{audio}"/>
+        </div>
+
+        <!-- Arquitetura Base -->
+        <div class="col-md-6">
+            <label class="form-label">Arquitetura Base</label>
+            <input type="text" class="form-control"
+                   th:field="*{arquiteturaBase}"/>
+        </div>
+
+        <!-- Energia -->
+        <div class="col-md-6">
+            <label class="form-label">Energia</label>
+            <input type="text" class="form-control" th:field="*{energia}"/>
+        </div>
+
+        <!-- Interfaces I/O -->
+        <div class="col-12">
+            <label class="form-label">Interfaces I/O</label>
+            <textarea class="form-control" rows="2"
+                      th:field="*{interfacesInOut}"></textarea>
+        </div>
+
+        <!-- Design Exterior -->
+        <div class="col-12">
+            <label class="form-label">Design Exterior</label>
+            <textarea class="form-control" rows="2"
+                      th:field="*{designExterior}"></textarea>
+        </div>
+
+        <!-- Mídia de Armazenamento -->
+        <div class="col-12">
+            <label class="form-label">Mídia de Armazenamento</label>
+            <input type="text" class="form-control"
+                   th:field="*{midiaArmazenamento}"/>
+        </div>
+
+        <!-- Linguagem Embutida -->
+        <div class="col-12">
+            <label class="form-label">Linguagem Embutida</label>
+            <input type="text" class="form-control"
+                   th:field="*{linguagemEmbutida}"/>
+        </div>
+
+    </div>
+</div>
+</html>
