@@ -67,7 +67,7 @@ public enum LogMessage {
     AUDIT_ACCESS("Acesso registrado | recurso: {} | usuário: {}")
     ;
 
-    private final static String SEPARATOR = "█".repeat(6);
+    private final static String SEPARATOR = "█".repeat(12);
     private final String msg;
 
     LogMessage(String message) {
