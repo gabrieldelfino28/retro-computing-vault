@@ -41,3 +41,6 @@ bin/
 ### System ###
 .DS_Store
 Thumbs.db
+
+### LOG ###
+/logs
