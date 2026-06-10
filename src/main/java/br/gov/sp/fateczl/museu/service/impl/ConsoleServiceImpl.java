@@ -39,8 +39,14 @@ public class ConsoleServiceImpl extends DispositivoServiceTemplate<Console, Cons
     @Override
     @Transactional
     protected Console save(Console hardware) {
-        log().info(LogMessage.SAVE, entity(), hardware.getId());
-        return repository.save(hardware);
+        var saved = repository.save(hardware);
+        log().info(LogMessage.SAVE, entity(), saved.getId());
+        return saved;
+    }
+
+    @Override
+    protected void beforeInsert(Console hardware) {
+
     }
 
     @Override

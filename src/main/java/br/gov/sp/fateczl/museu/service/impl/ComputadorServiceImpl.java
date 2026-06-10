@@ -35,9 +35,10 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
 
     @Override
     @Transactional
-    protected Computador save(Computador c) {
-        log().info(LogMessage.SAVE, entity(), c.getId());
-        return repository.save(c);
+    protected Computador save(Computador hardware) {
+        var saved = repository.save(hardware);
+        log().info(LogMessage.SAVE, entity(), saved.getId());
+        return saved;
     }
 
     @Override

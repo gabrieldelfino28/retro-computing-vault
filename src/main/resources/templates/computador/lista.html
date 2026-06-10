@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+
+<body>
+
+<section layout:fragment="content">
+
+    <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${sucesso}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-danger mb-0">Computadores</h2>
+
+        <a th:href="@{/computador/novo}"
+           class="btn btn-danger">
+            Novo Computador
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div th:if="${itens == null or #lists.isEmpty(itens)}" class="alert alert-info mb-0">
+                Nenhum computador cadastrado.
+            </div>
+
+            <div th:if="${itens != null and !#lists.isEmpty(itens)}" class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Modelo</th>
+                        <th>Fabricante</th>
+                        <th>Registrado Por</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="c : ${itens}">
+                        <td th:text="${c.id}"></td>
+                        <td th:text="${c.modelo}"></td>
+                        <td th:text="${c.fabricante}"></td>
+                        <td th:text="${c.registradoPor != null ? c.registradoPor.nome : '—'}"></td>
+
+                        <td>
+                            <div class="d-flex justify-content-end gap-2">
+
+                                <a th:href="@{/computador/detalhe/{id}(id=${c.id})}"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Detalhar
+                                </a>
+
+                                <a th:href="@{/computador/editar/{id}(id=${c.id})}"
+                                   class="btn btn-sm btn-outline-warning">
+                                    Editar
+                                </a>
+
+                                <form th:action="@{/computador/excluir/{id}(id=${c.id})}"
+                                      method="post"
+                                      class="d-inline">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-danger">
+                                        Excluir
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

@@ -39,8 +39,14 @@ public class DispositivoMovelServiceImpl extends DispositivoServiceTemplate<Disp
     @Override
     @Transactional
     protected DispositivoMovel save(DispositivoMovel hardware) {
-        log().info(LogMessage.SAVE, entity(), hardware.getId());
-        return repository.save(hardware);
+        var saved = repository.save(hardware);
+        log().info(LogMessage.SAVE, entity(), saved.getId());
+        return saved;
+    }
+
+    @Override
+    protected void beforeInsert(DispositivoMovel hardware) {
+
     }
 
     @Override

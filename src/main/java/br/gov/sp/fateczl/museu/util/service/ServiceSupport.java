@@ -60,7 +60,7 @@ public interface ServiceSupport {
         int start = (int) pageable.getOffset();
         int end   = Math.min(start + pageable.getPageSize(), list.size());
 
-        if (start > list.size()) return Page.empty(pageable);
+        if (start >= list.size()) return Page.empty(pageable);
 
         return new PageImpl<>(list.subList(start, end), pageable, list.size());
     }
