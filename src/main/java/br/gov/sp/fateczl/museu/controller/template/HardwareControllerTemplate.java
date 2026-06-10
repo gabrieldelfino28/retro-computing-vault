@@ -17,14 +17,17 @@ public abstract class HardwareControllerTemplate<Type extends Hardware, Service 
     protected abstract String getModelName();
     protected abstract Type newInstance();
 
-
+    @GetMapping
+    public String root() {
+        return "redirect:/" + getViewPrefix() + "/listar";
+    }
     @GetMapping("/listar")
     public String listar(Model model) {
         model.addAttribute("itens", getService().getAll());
         return getViewPrefix() + "/lista";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detalhe/{id}")
     public String detalhe(@PathVariable Long id, Model model) {
         model.addAttribute("item", getService().searchById(id));
         return getViewPrefix() + "/detalhe";
@@ -39,6 +42,7 @@ public abstract class HardwareControllerTemplate<Type extends Hardware, Service 
     @PostMapping("/novo")
     public String inserir(@ModelAttribute Type hardware, BindingResult result, RedirectAttributes attrs) {
         if (result.hasErrors()) {
+            getService().log().err(result.getAllErrors().toString());
             return getViewPrefix() + "/form";
         }
 

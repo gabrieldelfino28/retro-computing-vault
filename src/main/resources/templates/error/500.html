@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Erro 500</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --fatec-red: #c40000;
+            --fatec-dark-red: #8a0000;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .error-container {
+            height: 100vh;
+        }
+
+        .error-card {
+            border: none;
+            border-radius: 12px;
+        }
+
+        .error-header {
+            background-color: var(--fatec-red);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .btn-fatec {
+            background-color: var(--fatec-red);
+            color: white;
+            border: none;
+        }
+
+        .btn-fatec:hover {
+            background-color: var(--fatec-dark-red);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container d-flex justify-content-center align-items-center error-container">
+
+    <div class="col-md-6">
+
+        <div class="card error-card shadow">
+
+            <div class="card-header error-header text-center">
+                🚨 Erro Interno do Servidor (500)
+            </div>
+
+            <div class="card-body text-center">
+
+                <h4 class="mb-3">Ops! Algo deu errado 😅</h4>
+
+                <p class="text-muted">
+                    O servidor encontrou um erro inesperado.
+                    Tente novamente ou volte para a página inicial.
+                </p>
+
+                <a href="/" class="btn btn-fatec mt-3">
+                    ⬅ Voltar para o início
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

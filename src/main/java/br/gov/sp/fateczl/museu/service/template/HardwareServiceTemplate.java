@@ -5,7 +5,9 @@ import br.gov.sp.fateczl.museu.domain.entity.Imagem;
 import br.gov.sp.fateczl.museu.exception.codes.HardwareErr;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.HardwareRepository;
+import br.gov.sp.fateczl.museu.repository.UsuarioRepository;
 import br.gov.sp.fateczl.museu.service.HardwareService;
+import br.gov.sp.fateczl.museu.service.impl.UsuarioServiceImpl;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public abstract class HardwareServiceTemplate
     @Transactional
     public Type insert(Type hardware, Set<Imagem> imgs) {
         log().info(LogMessage.RECORD, entity(), hardware.getModelo());
+        beforeInsert(hardware); //Mock de User
         validateHardwareFields(hardware);
         validateBusinessRules(hardware);
 
@@ -129,4 +132,5 @@ public abstract class HardwareServiceTemplate
 
     protected abstract void applyInheritedUpdates(Type current, Type incoming);
 
+    protected abstract void beforeInsert(Type hardware);
 }

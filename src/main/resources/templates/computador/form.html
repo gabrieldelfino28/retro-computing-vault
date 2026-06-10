@@ -3,16 +3,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 
+<body>
 <section layout:fragment="content">
 
     <!-- Título dinâmico — cadastro ou edição -->
+    <!--/*@thymesVar id="computador" type="br.gov.sp.fateczl.museu.domain.entity.Computador"*/-->
     <h2 th:text="${computador.id == null}
         ? 'Cadastrar Computador'
         : 'Editar Computador'"></h2>
 
-    <form th:action="${computador.id == null}
+    <!--<form th:action="${computador.id == null}
                      ? @{/computador/cadastrar}
                      : @{/computador/editar}"
+          th:object="${computador}"
+          method="post">!-->
+
+
+    <form th:action="@{/computador/novo}"
           th:object="${computador}"
           method="post">
 
@@ -89,4 +96,5 @@
     </form>
 
 </section>
+</body>
 </html>

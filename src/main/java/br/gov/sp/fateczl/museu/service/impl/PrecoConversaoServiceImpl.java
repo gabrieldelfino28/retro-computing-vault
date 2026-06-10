@@ -35,10 +35,10 @@ public class PrecoConversaoServiceImpl implements PrecoConversaoService {
 
         var current = searchById(incoming.getId());
         current.setValorAtual(incoming.getValorAtual());
-        current.setMoedaAtualIso(incoming.getMoedaAtualIso());
+        current.setMoeda(incoming.getMoeda());
         current.setDataConversao(incoming.getDataConversao());
         current.setObservacao(incoming.getObservacao());
-        current.setIdHardward(incoming.getIdHardward());
+        current.setHardware(incoming.getHardware());
         save(current);
     }
 

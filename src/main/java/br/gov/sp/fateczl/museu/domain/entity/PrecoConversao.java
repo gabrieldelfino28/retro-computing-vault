@@ -30,7 +30,7 @@ public class PrecoConversao {
     // Moeda <-- (1:N) PrecoConversao
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "moeda_atual_iso", nullable = false)
-    private Moeda moedaAtualIso;
+    private Moeda moeda;
 
     @Column(name = "data_conversao_bcb", nullable = false)
     private LocalDate dataConversao;
@@ -41,14 +41,14 @@ public class PrecoConversao {
     //Hardware 1:N ->
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hardward")
-    private Hardware idHardward;
+    private Hardware hardware;
 
     public void validate() {
         FluentValidator.begin()
-                .notNullObject(moedaAtualIso, NullErr.NULL_OBJECT,  Fields.moedaAtualIso)
+                .notNullObject(moeda, NullErr.NULL_OBJECT,  Fields.moeda)
                 .notNullObject(dataConversao, NullErr.NULL_FIELD,   Fields.dataConversao)
                 .notEmpty(observacao,         NullErr.NULL_FIELD,   Fields.observacao)
-                .notNullObject(idHardward,    NullErr.NULL_OBJECT,  Fields.idHardward)
+                .notNullObject(hardware,    NullErr.NULL_OBJECT,  Fields.hardware)
                 .ifPresent(valorAtual, v ->
                         v.isPositive(valorAtual, HardwareErr.NEGATIVE_VALUE, Fields.valorAtual)
                 )

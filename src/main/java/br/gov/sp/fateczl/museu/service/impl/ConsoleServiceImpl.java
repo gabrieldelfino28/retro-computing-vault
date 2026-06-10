@@ -32,7 +32,7 @@ public class ConsoleServiceImpl extends DispositivoServiceTemplate<Console, Cons
     @Override
     protected void applySpecificUpdates(Console current, Console incoming) {
         current.setTipo(incoming.getTipo());
-        current.setGerecao(incoming.getGerecao());
+        current.setGeracao(incoming.getGeracao());
         current.setRegiaoSinal(incoming.getRegiaoSinal());
     }
 

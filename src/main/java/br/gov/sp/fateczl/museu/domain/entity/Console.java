@@ -24,7 +24,7 @@ import lombok.experimental.SuperBuilder;
 public class Console extends Dispositivo{
 
     @Column(name="geracao", length = 40)
-    private String gerecao;
+    private String geracao;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_console", nullable = false)
@@ -38,7 +38,7 @@ public class Console extends Dispositivo{
         super.validate();
 
         FluentValidator.begin()
-                .notEmpty(gerecao,      HardwareErr.REQUIRED_FIELD, Fields.gerecao)
+                .notEmpty(geracao,      HardwareErr.REQUIRED_FIELD, Fields.geracao)
                 .notNullObject(tipo,    HardwareErr.REQUIRED_FIELD, Fields.tipo)
                 .notEmpty(regiaoSinal,  HardwareErr.REQUIRED_FIELD, Fields.regiaoSinal)
         ;

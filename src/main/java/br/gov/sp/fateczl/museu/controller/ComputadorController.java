@@ -1,6 +1,5 @@
 package br.gov.sp.fateczl.museu.controller;
 
-
 import br.gov.sp.fateczl.museu.controller.template.HardwareControllerTemplate;
 import br.gov.sp.fateczl.museu.domain.entity.Computador;
 import br.gov.sp.fateczl.museu.domain.enums.TipoComputador;

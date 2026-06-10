@@ -1,6 +1,7 @@
 package br.gov.sp.fateczl.museu.service.impl;
 
 import br.gov.sp.fateczl.museu.domain.entity.Computador;
+import br.gov.sp.fateczl.museu.domain.entity.Usuario;
 import br.gov.sp.fateczl.museu.domain.enums.TipoComputador;
 import br.gov.sp.fateczl.museu.repository.ComputadorRepository;
 import br.gov.sp.fateczl.museu.service.ComputadorService;
@@ -15,14 +16,16 @@ import java.util.List;
 public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador, ComputadorRepository> implements ComputadorService {
 
     private final ComputadorRepository repository;
+    private final UsuarioServiceImpl usuarioService; //Mock de usuario
 
     @Override
     protected ComputadorRepository getRepository() {
         return this.repository;
     }
 
-    public ComputadorServiceImpl(ComputadorRepository repository) {
+    public ComputadorServiceImpl(ComputadorRepository repository, UsuarioServiceImpl usuarioService) {
         this.repository = repository;
+        this.usuarioService = usuarioService;
     }
 
     @Override
@@ -35,6 +38,13 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
     protected Computador save(Computador c) {
         log().info(LogMessage.SAVE, entity(), c.getId());
         return repository.save(c);
+    }
+
+    @Override
+    protected void beforeInsert(Computador hardware) {
+        Usuario usuario = usuarioService.searchById(1L);
+        hardware.setRegistradoPor(usuario);
+
     }
 
     /**
