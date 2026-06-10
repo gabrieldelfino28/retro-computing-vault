@@ -27,8 +27,38 @@
 
 <body>
 <nav class="navbar navbar-expand-lg">
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
     <div class="container">
-        <span class="navbar-brand">💻 Museu do Hardware</span>
+
+        <a class="navbar-brand"
+           th:href="@{/}">
+            🖥 Museu do Hardware
+        </a>
+
+        <div class="navbar-nav ms-auto">
+
+            <a class="nav-link"
+               th:href="@{/computadores}">
+                Computadores
+            </a>
+
+            <a class="nav-link"
+               th:href="@{/consoles}">
+                Consoles
+            </a>
+
+            <a class="nav-link"
+               th:href="@{/dispositivos-moveis}">
+                Dispositivos Móveis
+            </a>
+
+            <a class="nav-link"
+               th:href="@{/login}">
+                Login
+            </a>
+
+        </div>
+
     </div>
 </nav>
 <main class="container mt-4" layout:fragment="content">
