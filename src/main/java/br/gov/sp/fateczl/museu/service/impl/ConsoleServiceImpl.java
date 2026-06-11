@@ -71,4 +71,9 @@ public class ConsoleServiceImpl extends DispositivoServiceTemplate<Console, Cons
     public List<Console> searchBySinal(String regiaoSinal) {
         return orElseNotFound(repository.findByRegiaoSinalContainingIgnoreCase(regiaoSinal));
     }
+
+    @Override
+    public String pluralEntity() {
+        return entity() + "s";
+    }
 }

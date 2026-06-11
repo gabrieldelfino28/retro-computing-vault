@@ -2,8 +2,8 @@ package br.gov.sp.fateczl.museu.util.service;
 
 import br.gov.sp.fateczl.museu.exception.BusinessRuleException;
 import br.gov.sp.fateczl.museu.exception.codes.NullErr;
-import br.gov.sp.fateczl.museu.util.FluentValidator;
 import br.gov.sp.fateczl.museu.util.Logger;
+import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import br.gov.sp.fateczl.museu.util.logging.MuseumLogger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,6 +25,8 @@ public interface ServiceSupport {
                 .replace("Service", "");
     }
 
+     String pluralEntity();
+
     default <E> String collection(Collection<E> collection) {
         if (collection == null || collection.isEmpty()) return "Unknown";
         String name = collection.iterator().next().getClass().getSimpleName();
@@ -36,13 +38,13 @@ public interface ServiceSupport {
     }
 
     default <E> Collection<E> orElseNotFound(Collection<E> collection) {
-        FluentValidator.begin().check(collection == null|| collection.isEmpty(), NullErr.NOT_FOUND);
+        if (collection == null || collection.isEmpty()) log().info(LogMessage.EMPTY_RESULT, entity(), pluralEntity());
         return collection;
     }
 
     //Previously known as CheckEmptyList!
     default <E> List<E> orElseNotFound(List<E> list) {
-        FluentValidator.begin().check(list == null|| list.isEmpty(), NullErr.NOT_FOUND);
+        if (list == null || list.isEmpty()) log().info(LogMessage.EMPTY_RESULT, entity(), pluralEntity());
         return list;
     }
 

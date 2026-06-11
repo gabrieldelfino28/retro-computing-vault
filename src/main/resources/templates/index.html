@@ -3,11 +3,58 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Hora do Museu</title>
+    <meta charset="UTF-8">
 </head>
 <body>
-	<h1>Bem vindo</h1>
-	<p th:text="${msg}">texto</p>
+<section layout:fragment="content">
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1>Museu Virtual do Hardware</h1>
+                    <p>
+                        Explore a evolução dos computadores,
+                        consoles e dispositivos móveis que
+                        marcaram a história da tecnologia.
+                    </p>
+                    <a th:href="@{/computador/listar}"
+                       class="btn btn-light btn-acervo">
+                        Explorar Acervo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Conteúdo abaixo para gerar rolagem -->
+    <section class="container py-5">
+        <h2 class="mb-4">Categorias</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Computadores</h5>
+                        <p>Computadores históricos do acervo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Consoles</h5>
+                        <p>Videogames que marcaram gerações.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Dispositivos Móveis</h5>
+                        <p>Evolução da computação portátil.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
 </body>
 </html>

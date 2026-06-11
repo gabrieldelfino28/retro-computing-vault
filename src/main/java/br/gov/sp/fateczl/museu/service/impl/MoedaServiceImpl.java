@@ -87,4 +87,9 @@ public class MoedaServiceImpl implements MoedaService {
         log().info(LogMessage.SAVE, entity(), m.getIso());
         return repository.save(m);
     }
+
+    @Override
+    public String pluralEntity() {
+        return entity() + "s";
+    }
 }

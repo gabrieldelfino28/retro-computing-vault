@@ -34,6 +34,11 @@ public class ComputadorController extends HardwareControllerTemplate<Computador,
     }
 
     @Override
+    protected String getPluralName() {
+        return "Computadores";
+    }
+
+    @Override
     protected Computador newInstance() {
         return new Computador();
     }

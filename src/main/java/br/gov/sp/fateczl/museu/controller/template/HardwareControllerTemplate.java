@@ -2,6 +2,7 @@ package br.gov.sp.fateczl.museu.controller.template;
 
 import br.gov.sp.fateczl.museu.domain.entity.Hardware;
 import br.gov.sp.fateczl.museu.service.HardwareService;
+import br.gov.sp.fateczl.museu.util.controller.ControllerSupport;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-public abstract class HardwareControllerTemplate<Type extends Hardware, Service extends HardwareService<Type>> {
+public abstract class HardwareControllerTemplate<Type extends Hardware, Service extends HardwareService<Type>> implements ControllerSupport {
 
     protected abstract Service getService();
     protected abstract String getViewPrefix();
     protected abstract String getModelName();
+    protected abstract String getPluralName();
     protected abstract Type newInstance();
 
     @GetMapping
@@ -24,18 +26,22 @@ public abstract class HardwareControllerTemplate<Type extends Hardware, Service 
     @GetMapping("/listar")
     public String listar(Model model) {
         model.addAttribute("itens", getService().getAll());
+        breadcrumb(model, "Home / " + getPluralName());
         return getViewPrefix() + "/lista";
     }
 
     @GetMapping("/detalhe/{id}")
     public String detalhe(@PathVariable Long id, Model model) {
-        model.addAttribute("item", getService().searchById(id));
+        var hardware = getService().searchById(id);
+        model.addAttribute("item",hardware);
+        breadcrumb(model,  "Home / " + getPluralName() + " / " + hardware.getModelo());
         return getViewPrefix() + "/detalhe";
     }
 
     @GetMapping("/novo")
     public String formNovo(Model model) {
         model.addAttribute(getModelName(), newInstance());
+        breadcrumb(model, "Home / " + getPluralName() + " / Novo");
         return getViewPrefix() + "/form";
     }
 
@@ -57,7 +63,7 @@ public abstract class HardwareControllerTemplate<Type extends Hardware, Service 
         return "redirect:/" + getViewPrefix() + "/listar";
     }
 
-    @PostMapping("/{id}/deletar")
+    @PostMapping("/excluir/{id}")
     public String deletar(@PathVariable Long id, RedirectAttributes attrs) {
         getService().deleteById(id);
         attrs.addFlashAttribute("sucesso", "Removido com sucesso!");

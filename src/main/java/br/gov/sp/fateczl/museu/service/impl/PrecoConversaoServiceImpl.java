@@ -89,4 +89,9 @@ public class PrecoConversaoServiceImpl implements PrecoConversaoService {
         log().info(LogMessage.SAVE, entity(), p.getId());
         return repository.save(p);
     }
+
+    @Override
+    public String pluralEntity() {
+        return entity().replace("Conversao", "Conversoes");
+    }
 }

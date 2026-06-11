@@ -4,7 +4,7 @@
       layout:decorate="~{layout/base}">
 
 <body>
-<section layout:fragment="content">
+<section class="container mt-4" layout:fragment="content">
 
     <!-- Título dinâmico — cadastro ou edição -->
     <!--/*@thymesVar id="computador" type="br.gov.sp.fateczl.museu.domain.entity.Computador"*/-->
@@ -39,13 +39,11 @@
                 <div th:replace="~{fragments/form-dispositivo :: campos-dispositivo}"></div>
             </div>
         </div>
-
         <!-- Seção Computador (específico)-->
         <div class="card mb-4">
             <div class="card-header fw-bold">🖥️ Dados do Computador</div>
             <div class="card-body">
                 <div class="row g-3">
-
                     <!-- Tipo -->
                     <div class="col-md-6">
                         <label class="form-label">Tipo</label>
@@ -56,28 +54,24 @@
                             </option>
                         </select>
                     </div>
-
                     <!-- Expansibilidade -->
                     <div class="col-12">
                         <label class="form-label">Expansibilidade</label>
                         <textarea class="form-control" rows="2"
                                   th:field="*{expansibilidade}"></textarea>
                     </div>
-
                     <!-- Teclado -->
                     <div class="col-12">
                         <label class="form-label">Teclado</label>
                         <input type="text" class="form-control"
                                th:field="*{tecladoDescricao}"/>
                     </div>
-
                     <!-- Resoluções -->
                     <div class="col-12">
                         <label class="form-label">Resoluções Suportadas</label>
                         <input type="text" class="form-control"
                                th:field="*{resolucoes}"/>
                     </div>
-
                 </div>
             </div>
         </div>

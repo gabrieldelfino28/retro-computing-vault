@@ -83,4 +83,9 @@ public class UsuarioServiceImpl implements ServiceSupport, BaseService<Usuario, 
         log().info(LogMessage.SAVE, entity(), u.getId());
         return repository.save(u);
     }
+
+    @Override
+    public String pluralEntity() {
+        return entity() + "s";
+    }
 }

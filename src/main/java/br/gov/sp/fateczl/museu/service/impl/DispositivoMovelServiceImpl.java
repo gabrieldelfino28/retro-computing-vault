@@ -86,4 +86,9 @@ public class DispositivoMovelServiceImpl extends DispositivoServiceTemplate<Disp
     public List<DispositivoMovel> searchByBateriaMaH(Integer mah) {
         return orElseNotFound(repository.findByBateriaMah(mah));
     }
+
+    @Override
+    public String pluralEntity() {
+        return entity().replace("Movel","Moveis");
+    }
 }

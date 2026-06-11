@@ -2,6 +2,7 @@ package br.gov.sp.fateczl.museu.controller;
 
 import br.gov.sp.fateczl.museu.domain.entity.Computador;
 import br.gov.sp.fateczl.museu.service.ComputadorService;
+import br.gov.sp.fateczl.museu.util.controller.ControllerSupport;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class HomeController {
+public class HomeController implements ControllerSupport {
 
 	private final ComputadorService service;
 
@@ -22,9 +23,10 @@ public class HomeController {
     @GetMapping("/")
 	public String home(@RequestParam(defaultValue = "0") int page, Model model) {
 		//model.addAttribute("msg", "Testando o Museuuu!!");
-		Pageable pageable = PageRequest.of(page, 8);
-		Page<Computador> computadores = service.toPage(service.getAll(), pageable);
-		model.addAttribute("pagina", computadores);
+		//Pageable pageable = PageRequest.of(page, 8);
+		//Page<Computador> computadores = service.toPage(service.getAll(), pageable);
+		//model.addAttribute("pagina", computadores);
+		breadcrumb(model, "Home");
 		return "index";
 	}
 }

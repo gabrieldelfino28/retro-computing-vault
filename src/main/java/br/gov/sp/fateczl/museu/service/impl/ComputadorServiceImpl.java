@@ -86,4 +86,9 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
     public List<Computador> searchByResolucao(String res) {
         return orElseNotFound(repository.findByResolucoesContainingIgnoreCase(res));
     }
+
+    @Override
+    public String pluralEntity() {
+        return entity() + "es";
+    }
 }
