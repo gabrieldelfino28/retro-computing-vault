@@ -82,7 +82,6 @@ public abstract class Dispositivo extends Hardware{
 
         FluentValidator.begin()
                 .notEmpty(cpu,                HardwareErr.REQUIRED_FIELD, Fields.cpu)
-                .notEmpty(sistemaOperacional, HardwareErr.REQUIRED_FIELD, Fields.sistemaOperacional)
                 .notEmpty(linguagemEmbutida,  HardwareErr.REQUIRED_FIELD, Fields.linguagemEmbutida)
                 .notNullObject(ramUnidade,    HardwareErr.REQUIRED_FIELD, Fields.ramUnidade)
                 .notNullObject(ramQuantidade, HardwareErr.REQUIRED_FIELD, Fields.ramQuantidade)

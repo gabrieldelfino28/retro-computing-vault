@@ -6,6 +6,7 @@ import br.gov.sp.fateczl.museu.domain.enums.TipoComputador;
 import br.gov.sp.fateczl.museu.repository.ComputadorRepository;
 import br.gov.sp.fateczl.museu.service.ComputadorService;
 import br.gov.sp.fateczl.museu.service.template.DispositivoServiceTemplate;
+import br.gov.sp.fateczl.museu.util.enums.AppInfo;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,9 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
 
     @Override
     protected void validateBusinessRules(Computador c) {
-
+        if (c.getSistemaOperacional() == null || c.getSistemaOperacional().isEmpty()) {
+            c.setSistemaOperacional(AppInfo.DEFAULT_OS.getInfo());
+        }
     }
 
     @Override
@@ -41,11 +44,10 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
         return saved;
     }
 
-    @Override
+    @Override //Delete this later lmao when add the authetication
     protected void beforeInsert(Computador hardware) {
         Usuario usuario = usuarioService.searchById(1L);
         hardware.setRegistradoPor(usuario);
-
     }
 
     /**
