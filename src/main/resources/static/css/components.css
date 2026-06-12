@@ -1,0 +1,46 @@
+.fatec-logo {
+
+    width: 122px;
+    height: 79px;
+
+    transition: transform .2s;
+}
+
+.fatec-logo:hover {
+    transform: scale(1.02);
+}
+
+.social-link {
+
+    color: white;
+
+    font-size: 1rem;
+
+    transition: .2s;
+}
+
+.social-link:hover {
+
+    color: #d4d4d4;
+
+    transform: translateY(-1px);
+}
+
+.btn-acervo {
+
+    transition: all .25s ease;
+}
+
+.btn-acervo:hover {
+
+    background-color: var(--fatec-red);
+
+    border-color: var(--fatec-red);
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+            0 6px 16px rgba(0,0,0,.18);
+}

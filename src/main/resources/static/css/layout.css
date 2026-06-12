@@ -1,0 +1,111 @@
+.gov-bar {
+
+    background: #111;
+
+    color: white;
+
+    font-size: .85rem;
+
+    padding: 2rem 0;
+}
+
+.main-header {
+    background: white;
+    padding: 2rem 0;
+}
+
+.museum-nav {
+    background: var(--fatec-red);
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+}
+
+.museum-nav.scrolled {
+    box-shadow: 0px 4px 20px 0px rgba(0,0,0,0.25);
+}
+
+.museum-nav .nav-link {
+    color: white !important;
+    padding: 12px 0;
+    border-right: 1px solid rgb(0 0 0 / 0.3);
+}
+
+.museum-nav .nav-link:hover {
+
+    background: rgba(0,0,0,.10);
+}
+
+.breadcrumb-bar {
+
+    background: var(--fatec-gray);
+
+    color: white;
+
+    padding: .75rem 0;
+
+    font-size: .9rem;
+}
+
+.search-form {
+    display: flex;
+    border: 1px solid #d8d8d8;
+    border-radius: 999px;
+    overflow: hidden;
+    background: white;
+    max-width: 520px;
+    margin-left: auto;
+    transition: all .25s ease;
+}
+
+.search-form:focus-within {
+
+    border-color: var(--fatec-red);
+
+    box-shadow:
+            0 0 0 .15rem rgba(178,0,0,.15);
+
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    padding: 14px 24px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #777;
+}
+.search-button {
+    width: 70px;
+    border: none;
+    background: white;
+    color: var(--fatec-red);
+    font-size: 1.3rem;
+    border-left: 1px solid #e5e5e5;
+    transition: all .25s ease;
+}
+.search-button:hover {
+    color: #fafafa;
+    background: var(--fatec-red-dark);
+}
+
+.accessibility button {
+
+    background: transparent;
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    border-radius: 4px;
+
+    padding: 2px 8px;
+
+    margin-left: 5px;
+
+    font-size: .8rem;
+}

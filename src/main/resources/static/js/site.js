@@ -1,3 +1,4 @@
+// Navbar dinâmica
 window.addEventListener('scroll', () => {
 
     const nav = document.querySelector('.museum-nav');
@@ -10,24 +11,32 @@ window.addEventListener('scroll', () => {
 
 });
 
+
+// Acessibilidade - tamanho da fonte
 let currentSize = 100;
 
-document
-    .getElementById('font-plus')
-    .addEventListener('click', () => {
+const MIN_SIZE = 80;
+const MAX_SIZE = 140;
 
-        currentSize += 5;
+const btnPlus = document.getElementById('font-plus');
+const btnMinus = document.getElementById('font-minus');
 
-        document.body.style.fontSize =
-            currentSize + '%';
+if (btnPlus && btnMinus) {
+
+    btnPlus.addEventListener('click', () => {
+
+        if (currentSize < MAX_SIZE) {
+            currentSize += 5;
+            document.body.style.fontSize = currentSize + '%';
+        }
     });
 
-document
-    .getElementById('font-minus')
-    .addEventListener('click', () => {
+    btnMinus.addEventListener('click', () => {
 
-        currentSize -= 5;
-
-        document.body.style.fontSize =
-            currentSize + '%';
+        if (currentSize > MIN_SIZE) {
+            currentSize -= 5;
+            document.body.style.fontSize = currentSize + '%';
+        }
     });
+
+}
