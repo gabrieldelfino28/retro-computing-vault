@@ -75,11 +75,8 @@ public abstract class Hardware {
     public void validate() {
         FluentValidator.begin()
                 .notEmpty(modelo,       HardwareErr.REQUIRED_FIELD, Fields.modelo)
-                .notEmpty(fabricante,   HardwareErr.REQUIRED_FIELD, Fields.fabricante)
                 .notEmpty(descricao,    HardwareErr.REQUIRED_FIELD, Fields.descricao)
-                .notEmpty(paisOrigem,   HardwareErr.REQUIRED_FIELD, Fields.paisOrigem)
                 .notEmpty(observacao,   HardwareErr.REQUIRED_FIELD, Fields.observacao)
-                .notEmpty(linhaProduto, HardwareErr.REQUIRED_FIELD, Fields.linhaProduto)
                 .notNullObject(dataLancamento, HardwareErr.REQUIRED_FIELD, Fields.dataLancamento)
                 .notInFuture(dataLancamento,   HardwareErr.INVALID_DATE,   Fields.dataLancamento)
                 .minYear(dataLancamento, 1940,  HardwareErr.ANO_INVALIDO,   Fields.dataLancamento)

@@ -10,7 +10,7 @@ public enum AppInfo {
     NOT_INFORMED("Informação não fornecida."),
     UNKNOWN_VENDOR("Fabricante desconhecido."),
     UNKNOWN_ORIGIN("País de origem desconhecido."),
-    
+    UNKNOWN_LINE("Linha de Produto desconhecida.")
     ;
 
     private final String info;

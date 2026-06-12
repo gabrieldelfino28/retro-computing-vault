@@ -31,9 +31,8 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
 
     @Override
     protected void validateBusinessRules(Computador c) {
-        if (c.getSistemaOperacional() == null || c.getSistemaOperacional().isEmpty()) {
+        if (c.getSistemaOperacional() == null || c.getSistemaOperacional().isEmpty())
             c.setSistemaOperacional(AppInfo.DEFAULT_OS.getInfo());
-        }
     }
 
     @Override
@@ -51,10 +50,8 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
     }
 
     /**
-     * @param existing
-     * Current existing entity that needs to updated
-     * @param incoming
-     * Entity that has the updated date from the front-end
+     * @param existing Current existing entity that needs to updated
+     * @param incoming Entity that has the updated date from the front-end
      */
     @Override
     protected void applySpecificUpdates(Computador existing, Computador incoming) {
@@ -73,8 +70,7 @@ public class ComputadorServiceImpl extends DispositivoServiceTemplate<Computador
     }
 
     /**
-     * @implNote
-     * SearchBy methods implementing ComputadorRepository specific fields
+     * @implNote SearchBy methods implementing ComputadorRepository specific fields
      */
 
     @Override

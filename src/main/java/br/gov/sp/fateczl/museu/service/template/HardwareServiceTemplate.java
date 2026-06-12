@@ -7,6 +7,7 @@ import br.gov.sp.fateczl.museu.exception.codes.NullErr;
 import br.gov.sp.fateczl.museu.repository.HardwareRepository;
 import br.gov.sp.fateczl.museu.service.HardwareService;
 import br.gov.sp.fateczl.museu.util.FluentValidator;
+import br.gov.sp.fateczl.museu.util.enums.AppInfo;
 import br.gov.sp.fateczl.museu.util.enums.LogMessage;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,12 @@ public abstract class HardwareServiceTemplate
 
     private void validateHardwareFields(Type h) {
         FluentValidator.begin().notNullObject(h, NullErr.NULL_OBJECT, entity());
+        if (h.getPaisOrigem() == null || h.getPaisOrigem().isEmpty())
+            h.setPaisOrigem(AppInfo.UNKNOWN_ORIGIN.getInfo());
+        if (h.getFabricante() == null || h.getFabricante().isEmpty())
+            h.setFabricante(AppInfo.UNKNOWN_VENDOR.getInfo());
+        if (h.getLinhaProduto() == null || h.getLinhaProduto().isEmpty())
+            h.setLinhaProduto(AppInfo.UNKNOWN_LINE.getInfo());
         h.validate();
     }
 
