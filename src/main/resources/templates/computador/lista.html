@@ -6,15 +6,17 @@
 <body>
 <section class="container mt-4" layout:fragment="content">
     <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i th:replace="~{fragments/emoji :: fluent(emoji='2705', size='16')}"></i>
         <span th:text="${sucesso}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="text-danger mb-0">Computadores</h2>
+        <h2 class="text-danger mb-0 bold">Computadores</h2>
 
         <a th:href="@{/computador/novo}"
            class="btn btn-danger">
+            <i class="fa-solid fa-circle-plus"></i>
             Novo Computador
         </a>
     </div>
@@ -51,12 +53,12 @@
 
                                 <a th:href="@{/computador/detalhe/{id}(id=${c.id})}"
                                    class="btn btn-sm btn-outline-primary">
-                                    🔎 Detalhar
+                                    <i th:replace="~{fragments/emoji :: fluent(emoji='1f50d', size='18')}"></i> Detalhar
                                 </a>
 
                                 <a th:href="@{/computador/editar/{id}(id=${c.id})}"
                                    class="btn btn-sm btn-outline-warning">
-                                    ✍ Editar
+                                    <i th:replace="~{fragments/emoji :: fluent(emoji='270d-fe0f', size='18')}"></i> Editar
                                 </a>
 
                                 <form th:action="@{/computador/excluir/{id}(id=${c.id})}"
@@ -64,7 +66,7 @@
                                       class="d-inline">
                                     <button type="submit"
                                             class="btn btn-sm btn-outline-danger">
-                                        🗑 Excluir
+                                        <i th:replace="~{fragments/emoji :: fluent(emoji='1f5d1-fe0f', size='18')}"></i> Excluir
                                     </button>
                                 </form>
 

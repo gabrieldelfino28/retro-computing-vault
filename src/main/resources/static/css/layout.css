@@ -1,11 +1,7 @@
 .gov-bar {
-
     background: #111;
-
     color: white;
-
     font-size: .85rem;
-
     padding: 2rem 0;
 }
 
@@ -14,38 +10,63 @@
     padding: 2rem 0;
 }
 
+.navbar {
+    transition: all .3s ease;
+}
+
+.navbar-nav {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-nav .nav-item {
+    border-right: 1px solid #7e0000;
+}
+
+.navbar-nav .nav-item:last-child {
+    border-right: none;
+}
+
 .museum-nav {
+    width: 100%;
     background: var(--fatec-red);
+    padding: 0;
     position: sticky;
     top: 0;
-    z-index: 1050;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+    z-index: 9999;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
 .museum-nav.scrolled {
-    box-shadow: 0px 4px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
 }
 
 .museum-nav .nav-link {
+    display: block;
+    padding: 20px 15px;
+    line-height: 1.5;
+    align-items: center;
     color: white !important;
-    padding: 12px 0;
-    border-right: 1px solid rgb(0 0 0 / 0.3);
+    font-weight: 300;
+    transition: all .3s ease;
 }
 
 .museum-nav .nav-link:hover {
-
-    background: rgba(0,0,0,.10);
+    transition: all .3s ease;
+    background-color: #7e0000;
 }
 
 .breadcrumb-bar {
-
     background: var(--fatec-gray);
-
     color: white;
-
     padding: .75rem 0;
-
     font-size: .9rem;
+}
+
+.home {
+    color: white !important;
+    transition: all 0.3s ease;
 }
 
 .search-form {
@@ -63,8 +84,7 @@
 
     border-color: var(--fatec-red);
 
-    box-shadow:
-            0 0 0 .15rem rgba(178,0,0,.15);
+    box-shadow: 0 0 0 .15rem rgba(178, 0, 0, .15);
 
 }
 
@@ -79,6 +99,7 @@
 .search-input::placeholder {
     color: #777;
 }
+
 .search-button {
     width: 70px;
     border: none;
@@ -88,24 +109,27 @@
     border-left: 1px solid #e5e5e5;
     transition: all .25s ease;
 }
+
 .search-button:hover {
     color: #fafafa;
     background: var(--fatec-red-dark);
+    transition: all .3s ease;
 }
 
 .accessibility button {
 
     background: transparent;
-
     color: white;
-
-    border: 1px solid rgba(255,255,255,.25);
-
-    border-radius: 4px;
-
-    padding: 2px 8px;
-
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 30px;
+    padding: 4px 8px;
     margin-left: 5px;
+    font-size: 1rem;
+    transition: all .3s ease;
+}
 
-    font-size: .8rem;
+.accessibility button:hover {
+    transform: translateY(-2px);
+    color: black;
+    background: white;
 }

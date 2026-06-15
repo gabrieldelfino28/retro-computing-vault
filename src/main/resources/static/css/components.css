@@ -1,8 +1,6 @@
 .fatec-logo {
-
-    width: 122px;
+    width: auto;
     height: 79px;
-
     transition: transform .2s;
 }
 
@@ -43,4 +41,8 @@
 
     box-shadow:
             0 6px 16px rgba(0,0,0,.18);
+}
+
+.btn {
+    transition: all .25s ease;
 }

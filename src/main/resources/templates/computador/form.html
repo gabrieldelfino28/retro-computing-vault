@@ -63,10 +63,15 @@
                 </div>
             </div>
         </div>
-        <!-- Botões -->
+        <!-- Botões 💾-->
         <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary">💾 Salvar</button>
-            <a th:href="@{/computador/listar}" class="btn btn-outline-secondary">❌ Cancelar</a>
+            <button type="submit" class="btn btn-primary">
+                <i th:replace="~{fragments/emoji :: fluent(emoji='1f4be', size='24')}"></i> Salvar
+            </button>
+            <a th:href="@{/computador/listar}"
+               class="btn btn-danger">
+                <i th:replace="~{fragments/emoji :: fluent(emoji='274c', size='24')}"></i> Cancelar
+            </a>
         </div>
     </form>
 </section>

@@ -1,4 +1,5 @@
 .hero {
+    transition: all .25s ease;
 
     background:
             linear-gradient(

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--
+To call this Fragment:
+    <i th:replace="~{fragments/emoji :: fluent(emoji='<insert-unicode>', size='24')}"></i>
+
+    site to test the codes: https://cdn.jsdelivr.net/npm/@lobehub/fluent-emoji-3d@1.1.0/assets/
+-->
+<th:block th:fragment="fluent(emoji, size)">
+  <img th:src="@{'https://cdn.jsdelivr.net/npm/@lobehub/fluent-emoji-3d@1.1.0/assets/' + ${emoji} + '.webp'}"
+       th:alt="${emoji}"
+       th:width="${size}"
+       th:height="${size}"
+       style="vertical-align: middle; display: inline-block;" />
+</th:block>
+
+</html>
