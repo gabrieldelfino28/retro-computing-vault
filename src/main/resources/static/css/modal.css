@@ -1,0 +1,114 @@
+
+header, nav, div, section, p, h1 {
+    transition: filter 0.4s ease, opacity 0.4s ease;
+}
+
+/* 1. Borra tudo o que está no layout base (Navbar vermelha, Header dos logos e o Background geral) */
+html.global-blur-active body > :not(.error-main) {
+    filter: blur(8px) !important;
+    opacity: 0.6;
+}
+
+/* 2. CORREÇÃO: Aplica o desfoque diretamente na div .error-page, forçando o ::before (fundo SVG) a borrar junto! */
+html.global-blur-active .error-page {
+    filter: blur(8px) !important;
+}
+
+/* 3. Evita que o modal sofra desfoque cumulativo por estar dentro da error-page */
+html.global-blur-active .error-page #redirect-modal {
+    filter: none !important;
+}
+
+/* --- CAMADA DO MODAL (Fica acima de absolutamente tudo) --- */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Escurece suavemente a tela inteira */
+
+    /* Z-index astronômico para garantir que fique por CIMA da Navbar e de qualquer Header */
+    z-index: 999999 !important;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+
+    /* Protege o Modal para ele NUNCA receber o desfoque global */
+    filter: none !important;
+}
+
+.custom-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Card centralizado do aviso */
+.custom-modal-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.custom-modal-overlay.active .custom-modal-card {
+    transform: scale(1);
+}
+
+.custom-modal-card h3 {
+    color: #dc3545;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.custom-modal-card p {
+    color: #333333;
+    font-size: 16px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-modal:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.btn-confirm {
+    background-color: #dc3545;
+    color: #ffffff !important;
+}
+
+.btn-cancel {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+html.global-blur-active #delete-modal {
+    filter: none !important;
+    opacity: 1 !important;
+}

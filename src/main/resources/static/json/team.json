@@ -1,0 +1,18 @@
+{
+  "DESENVOLVEDOR": {
+    "nome": "Gabriel Delfino",
+    "cargo": "Desenvolvedor FullStack",
+    "foto": "https://media.licdn.com/dms/image/v2/D4D35AQHhebUjOvYoSg/profile-framedphoto-shrink_800_800/B4DZpqlBgnG8Ag-/0/1762724682068?e=1782313200&v=beta&t=wTXQuspRpTJfkoFU4yRQi22jg8sr3sD6wKiDEhl3qLo",
+    "linkedin": "https://www.linkedin.com/in/gabriel-cavalcante-delfino",
+    "github": "https://github.com/gabrieldelfino28",
+    "isOrientador": false
+  },
+  "ORIENTADOR": {
+    "nome": "Leandro Colevati dos Santos",
+    "cargo": "Supervisor Acadêmico",
+    "foto": "https://media.licdn.com/dms/image/v2/D4D03AQGeMLewYCNn-Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1683170628688?e=1783555200&v=beta&t=RsVEOSWl1fwwTR1vdYdT_YY7DiRJlR-2_M54xH5rr8Q",
+    "linkedin": "https://www.linkedin.com/in/leandro-colevati-dos-santos-5a3bb0170/",
+    "github": "https://github.com/lecolevati",
+    "isOrientador": true
+  }
+}

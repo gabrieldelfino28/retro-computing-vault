@@ -4,13 +4,13 @@
       layout:decorate="~{layout/base}">
 
 <body>
-<section class="container mt-4" layout:fragment="content">
+<section class="container mt-4 animated-card" layout:fragment="content">
     <!--/*@thymesVar id="computador" type="br.gov.sp.fateczl.museu.domain.entity.Computador"*/-->
     <h2 th:text="${computador.id == null}
         ? 'Cadastrar Computador'
         : 'Editar Computador'">
     </h2>
-
+    <hr class="fatec-hr small">
     <form th:action="@{/computador/novo}" th:object="${computador}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <!-- Seção Hardware -->

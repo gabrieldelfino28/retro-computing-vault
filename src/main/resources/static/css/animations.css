@@ -40,6 +40,20 @@
 
 }
 
+@keyframes floatingBg {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.03);
+    }
+
+    100% {
+        transform: translateY(0) scale(1.06);
+    }
+}
+
 @keyframes heroZoom {
 
     from {
@@ -70,6 +84,25 @@
         transform:
                 scale(1.1)
                 translateY(0);
+    }
+}
+
+@keyframes desenharBorda {
+    0%   { clip-path: inset(0 100% 100% 0); } /* Topo esquerdo */
+    25%  { clip-path: inset(0 0% 100% 0); }   /* Preenche o topo */
+    50%  { clip-path: inset(0 0% 50% 0); }    /* Preenche a lateral direita até o meio */
+    75%  { clip-path: inset(0 0% 0% 0%); }    /* Preenche tudo */
+    100% { clip-path: inset(0 0% 0% 0); }     /* Finaliza */
+}
+
+@keyframes slideFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(60px); /* Vem 60px da direita */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Para no local correto */
     }
 }
 

@@ -1,10 +1,13 @@
 .museum-footer {
-
     margin-top: 5rem;
-
     background: var(--footer-primary);
-
     color: white;
+}
+
+.footer-title {
+    color: white;
+    font-family: "Roboto Slab", sans-serif;
+    font-weight: 400;
 }
 
 .footer-top {
@@ -51,60 +54,46 @@
 }
 
 .footer-title {
-
-    font-weight: 700;
-
+    font-weight: 600;
     margin-bottom: 1rem;
 }
 
 .footer-divider {
-
-    border-right:
-            1px solid rgba(255,255,255,.15);
+    border-right: 1px solid rgb(255 255 255 / 0.3);
 }
 
 .footer-social {
-
     display: flex;
-
     gap: .75rem;
 }
 
 .footer-social a {
-
     width: 48px;
     height: 48px;
-
     border-radius: 50%;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     text-decoration: none;
-
     background: #00c7d4;
-
     color: #004955;
-
     font-size: 1.4rem;
-
-    transition: .25s;
+    transition: .3s ease;
 }
 
 .footer-social a:hover {
-
     background: white;
-
     transform: translateY(-3px);
 }
 
+.footer-top p {
+    font-size: 0.95rem;
+    font-weight: 250;
+}
+
 .footer-bottom {
-
     background: var(--footer-secondary);
-
     padding: 1.5rem 0;
-
     text-align: center;
+    font-weight: 250;
 }

@@ -8,6 +8,14 @@
     transform: scale(1.02);
 }
 
+.gov-logo {
+    transition: transform .3s ease-out;
+}
+
+.gov-logo:hover {
+    transform: scale(1.03);
+}
+
 .social-link {
 
     color: white;
@@ -25,20 +33,14 @@
 }
 
 .btn-acervo {
-
-    transition: all .25s ease;
+    transition: all .3s ease;
 }
 
 .btn-acervo:hover {
-
     background-color: var(--fatec-red);
-
     border-color: var(--fatec-red);
-
     color: white;
-
-    transform: translateY(-2px);
-
+    transform: translateY(-4px);
     box-shadow:
             0 6px 16px rgba(0,0,0,.18);
 }

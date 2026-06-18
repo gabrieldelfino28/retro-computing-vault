@@ -1,46 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
 <head>
     <meta charset="UTF-8">
-    <title>Erro 404</title>
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-    <link rel="manifest" href="/images/site.webmanifest.json">
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Página não encontrada | Fatec Zona Leste</title>
     <link rel="stylesheet" th:href="@{/css/error.css}">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Font-Awesome icons-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<div class="error-page">
+<section class="error-main" layout:fragment="content">
+    <div class="error-page justify-content-center align-items-center">
 
-    <div class="error-code">
-        404
+        <div class="error-code animated-card">
+            404
+        </div>
+
+        <h1 class="error-title animated-card">Desculpe!</h1>
+
+        <p class="animated-card">
+            A página que você está tentando acessar
+            não foi encontrada.
+        </p>
+
+        <form class="search-form error-search-form animated-card">
+            <input type="search"
+                   class="search-input"
+                   placeholder="Buscar no acervo...">
+
+            <button type="submit"
+                    class="search-button">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+
+        <div class="fatec-card animated-card">
+            <img src="/images/404.jpg" class="fatec-card-img" alt="Not Found">
+            <svg class="fatec-card-svg">
+                <rect class="fatec-card-rect" x="0" y="0" width="100%" height="100%"/>
+            </svg>
+        </div>
+
+        <!-- Estrutura do Modal de Aviso -->
+
+
     </div>
-
-    <h1>Desculpe!</h1>
-
-    <p>
-        A página que você está tentando acessar
-        não foi encontrada.
-    </p>
-
-    <form>
-        <input type="search">
-        <button>
-            <i class="bi bi-search"></i>
-        </button>
-    </form>
-
-    <img src="/images/404.jpg">
-
-</div>
+    <div id="redirect-modal" class="custom-modal-overlay">
+        <div class="custom-modal-card">
+            <h3>Página Não Encontrada</h3>
+            <p>Gostaria de voltar para a página principal do Museu do Hardware?</p>
+            <div class="modal-buttons">
+                <a href="/" class="btn-modal btn-confirm">Sim, voltar</a>
+                <button class="btn-modal btn-cancel" onclick="fecharModal()">Ficar aqui</button>
+            </div>
+        </div>
+    </div>
+    <script src="/js/404.js"></script>
+</section>
 </body>
 </html>

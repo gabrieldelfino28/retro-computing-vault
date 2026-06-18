@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz"
+      layout:decorate="~{layout/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Sobre Nós | Museu do Hardware</title>
+    <link rel="stylesheet" th:href="@{/css/sobre.css}">
+</head>
+<body>
+<section class="container px-5 py-5 animated-card" layout:fragment="content">
+    <h2>Sobre o Projeto</h2>
+    <hr class="fatec-hr">
+    <div class="content-section">
+        <p>
+            O <strong>Museu do hardware</strong> é uma aplicação <em>Fullstack</em> desenvolvida em Java com Spring Boot com o objetivo de
+            catalogar e gerenciar hardware histórico — desde computadores clássicos até consoles e dispositivos móveis
+            legados.
+        </p>
+        <p>
+            O projeto tem foco em boas práticas de Programação Orientada a Objetos (POO) e em uma arquitetura limpa e
+            extensível, servindo também como estudo aprofundado de padrões de projeto e persistência com JPA/Hibernate.
+        </p>
+    </div>
+
+    <!-- Estrutura dividida para receber o time dinamicamente -->
+    <div id="team-container" class="g-5">
+
+        <!-- SEÇÃO DE ORIENTADORES -->
+        <div class="row justify-content-center mb-5" id="orientadores-container">
+            <h3>Orientadores</h3>
+            <hr class="fatec-hr small">
+            <div class="text-center">
+                <p class="text-muted">Carregando orientadores...</p>
+            </div>
+        </div>
+
+
+        <!-- SEÇÃO DE DESENVOLVEDORES -->
+        <div class="row justify-content-center" id="desenvolvedores-container">
+            <h3>Desenvolvedores</h3>
+            <hr class="fatec-hr small">
+            <div class="text-center">
+                <p class="text-muted">Carregando desenvolvedores...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Importação do script -->
+    <script th:src="@{/js/team.js}"></script>
+</section>
+</body>
+</html>

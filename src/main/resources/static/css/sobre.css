@@ -1,0 +1,169 @@
+.historic-figure {
+    margin: 4rem auto;
+    text-align: center;
+}
+
+.historic-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 75%;
+    height: auto;
+    border-radius: 6px;
+    transition: transform .8s ease,
+    box-shadow .8s ease,
+    filter .6s ease;
+}
+
+.historic-image:hover {
+    transform: scale(1.015) translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, .18);
+    filter: brightness(1.02);
+}
+
+.historic-caption {
+    font-style: italic;
+    margin-top: 1.1rem;
+    font-size: .85rem;
+    color: #6c757d;
+    text-align: center;
+}
+
+.team-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 0.13);
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Layout dos Cards do Time (Opcional, para organizar sua tela) */
+.team-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+
+}
+
+.member-card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    width: 250px;
+}
+
+.avatar-container {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo da Foto (com o Zoom Interno e Brilho) */
+.team-photo {
+    width: 146px;
+    height: 146px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    filter: brightness(0.95) saturate(1);
+    transition: transform 0.5s ease, filter 0.4s ease;
+}
+
+/* O Círculo de borda invisível que vai se desenhar */
+.avatar-border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    transform: rotate(-90deg); /* Faz a animação começar do topo do círculo */
+}
+
+.avatar-border circle {
+    fill: none;
+    stroke: #b40113; /* Cor vermelha */
+    stroke-width: 3; /* Espessura da borda */
+    stroke-linecap: round;
+
+    /* Comprimento da linha do círculo (2 * PI * raio 76 = ~478) */
+    stroke-dasharray: 490;
+    stroke-dashoffset: 490; /* Começa totalmente escondida */
+
+    transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- EFEITO HOVER (Gatilho ao passar o mouse no Card) --- */
+
+/* 1. Faz a borda vermelha correr contornando a foto em tempo real */
+.team-card:hover .avatar-border circle {
+    stroke-dashoffset: 0; /* Preenche o contorno completamente */
+}
+
+/* 2. Aplica o Zoom e Brilho Vívido na imagem */
+.team-card:hover .team-photo {
+    transform: scale(1.06);
+    filter: brightness(1.1) saturate(1.25);
+}
+
+/* Container dos botões do card */
+.social-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo padrão do botão circular */
+.social-btn {
+    --hover-color: rgb(227 222 222 / 0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Torna redondo */
+    background-color: #333333;
+    color: #ffffff !important;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    /* Transições suaves controladas pelo navegador */
+    transition: background-color 0.4s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+/* Efeito Hover: Muda cor de fundo, rotaciona 360° e cresce suavemente */
+.social-btn:hover {
+    background-color: var(--hover-color) !important;
+    transform: scale(1.18) rotate(360deg);
+    box-shadow: 0 0 12px var(--hover-color);
+}
+
+/* Alinhamento dos ícones do Bootstrap */
+.social-btn i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+
+.team-card i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
+}
+

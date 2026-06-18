@@ -1,80 +1,35 @@
-@keyframes contentFade {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+.error-main {
+    position: relative;
 }
 
-:root {
-    --fatec-red: #c40000;
-    --fatec-dark-red: #8a0000;
+.error-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/elements/01.svg') center center no-repeat;
+    background-size: 1800px;
+    opacity: .09;
+    animation: floatingBg 11s ease-in-out infinite alternate;
 }
 
-@keyframes floatingBg {
-    0% {
-        transform:
-                scale(1)
-                translateY(0);
-    }
-
-    50% {
-        transform:
-                scale(1.05)
-                translateY(-15px);
-    }
-
-    100% {
-        transform:
-                scale(1.1)
-                translateY(0);
-    }
+.error-page > * {
+    position: relative;
+    z-index: 1;
 }
 
-body {
-
-    background: #f8f9fa;
-
-    min-height: 100vh;
-
-    display: flex;
+.error-page {
+    height: auto;
+    width: 100%;
+    flex-direction: column;
     align-items: center;
-
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #f5f5f5;
     position: relative;
     overflow: hidden;
     animation: contentFade .35s ease-out;
-}
-
-body::before {
-
-    content: "";
-
-    position: fixed;
-
-    inset: 0;
-
-    background: url('/elements/01.svg') center center no-repeat;
-
-    background-size: 1800px;
-
-    opacity: .10;
-
-    animation: floatingBg 11s ease-in-out infinite alternate;
-
-    pointer-events: none;
+    transition: filter 0.4s ease, opacity 0.4s ease;
 }
 
 .error-container {
@@ -107,15 +62,10 @@ body::before {
     background-color: var(--fatec-dark-red);
 }
 
-.error-page {
-    text-align: center;
-    padding: 4rem 1rem;
-}
-
 .error-code {
     font-size: 10rem;
     font-weight: 700;
-    color: #efefef;
+    color: #d5d3d3;
     line-height: 1;
 }
 
@@ -133,7 +83,13 @@ body::before {
     margin: 1rem auto 2rem;
 }
 
-.error-image {
-    max-width: 500px;
-    width: 100%;
+.error-page p {
+    color: #2c6c7e;
+    font-size: 1.6rem;
+    max-width: 800px;
+    margin: 1rem auto 2rem;
+}
+
+.error-search-form {
+    margin: 0 auto;
 }

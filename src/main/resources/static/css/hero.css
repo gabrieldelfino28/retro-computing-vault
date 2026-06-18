@@ -1,41 +1,53 @@
 .hero {
-    transition: all .25s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    color: white;
+    --hero-blur: 0px;
+    transition: 0.3s ease-in-out;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: -100px 0;
 
     background:
             linear-gradient(
                     rgba(0,0,0,.65),
                     rgba(0,0,0,.65)
             ),
-            url('/images/hero.jpg');
+            url('/images/hero.webp');
 
     background-position: center;
     background-size: cover;
+    z-index: 1;
+    animation: heroZoom 12s ease-in-out infinite alternate;
+    will-change: transform;
+    filter: blur(var(--hero-blur));
+}
 
-    background-attachment: fixed;
-
-    min-height: 80vh;
-
-    display: flex;
-    align-items: center;
-
-    color: white;
-
-    animation:
-            heroZoom 15s ease-in-out infinite alternate;
+.hero .container {
+    position: relative;
+    z-index: 2;
 }
 
 .hero h1 {
-
     font-size: 3rem;
     font-weight: 700;
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+}
 
+
+.hero h1:hover {
+    color: var(--fatec-red);
+    text-shadow: 2px 6px 16px rgba(0,0,0,.18);
 }
 
 .hero p {
-
     font-size: 1.2rem;
-
     max-width: 700px;
-
     margin: 20px auto;
 }
