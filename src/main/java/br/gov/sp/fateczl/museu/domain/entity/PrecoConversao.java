@@ -40,7 +40,7 @@ public class PrecoConversao {
 
     //Hardware 1:N ->
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_hardward")
+    @JoinColumn(name = "id_hardware")
     private Hardware hardware;
 
     public void validate() {

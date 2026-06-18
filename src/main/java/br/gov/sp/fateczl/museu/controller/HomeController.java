@@ -22,11 +22,22 @@ public class HomeController implements ControllerSupport {
 
     @GetMapping("/")
 	public String home(@RequestParam(defaultValue = "0") int page, Model model) {
-		//model.addAttribute("msg", "Testando o Museuuu!!");
 		//Pageable pageable = PageRequest.of(page, 8);
 		//Page<Computador> computadores = service.toPage(service.getAll(), pageable);
 		//model.addAttribute("pagina", computadores);
-		breadcrumb(model, "Home");
+		breadcrumb(model, null);
 		return "index";
+	}
+
+	@GetMapping("/quem-somos")
+	public String sobreFatec(Model model) {
+		breadcrumb(model, "A Fatec Zona Leste");
+		return "sobre/fatec";
+	}
+
+	@GetMapping("/sobre-projeto")
+	public String sobreProjeto(Model model) {
+		breadcrumb(model, "O Projeto");
+		return "sobre/projeto";
 	}
 }

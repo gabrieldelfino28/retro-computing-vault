@@ -3,6 +3,7 @@ package br.gov.sp.fateczl.museu.controller.template;
 import br.gov.sp.fateczl.museu.domain.entity.Hardware;
 import br.gov.sp.fateczl.museu.service.HardwareService;
 import br.gov.sp.fateczl.museu.util.controller.ControllerSupport;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public abstract class HardwareControllerTemplate<Type extends Hardware, Service 
     protected abstract Service getService();
     protected abstract String getViewPrefix();
     protected abstract String getModelName();
-    protected abstract String getPluralName();
+    protected abstract String entityName();
     protected abstract Type newInstance();
 
     @GetMapping
@@ -26,7 +27,7 @@ public abstract class HardwareControllerTemplate<Type extends Hardware, Service 
     @GetMapping("/listar")
     public String listar(Model model) {
         model.addAttribute("itens", getService().getAll());
-        breadcrumb(model, "Home / " + getPluralName());
+        breadcrumb(model, entityName());
         return getViewPrefix() + "/lista";
     }
 
@@ -34,14 +35,14 @@ public abstract class HardwareControllerTemplate<Type extends Hardware, Service 
     public String detalhe(@PathVariable Long id, Model model) {
         var hardware = getService().searchById(id);
         model.addAttribute("item",hardware);
-        breadcrumb(model,  "Home / " + getPluralName() + " / " + hardware.getModelo());
+        breadcrumb(model,  entityName() + " / " + hardware.getModelo());
         return getViewPrefix() + "/detalhe";
     }
 
     @GetMapping("/novo")
     public String formNovo(Model model) {
         model.addAttribute(getModelName(), newInstance());
-        breadcrumb(model, "Home / " + getPluralName() + " / Novo");
+        breadcrumb(model, entityName() + " / Novo");
         return getViewPrefix() + "/form";
     }
 

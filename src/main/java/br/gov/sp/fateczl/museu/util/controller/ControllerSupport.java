@@ -2,14 +2,14 @@ package br.gov.sp.fateczl.museu.util.controller;
 
 import org.springframework.ui.Model;
 
-public interface ControllerSupport {
-    default void breadcrumb(
-            Model model,
-            String value) {
+import java.util.List;
 
-        model.addAttribute(
-                "breadcrumb",
-                value
-        );
+public interface ControllerSupport {
+    default void breadcrumb(Model model, String value) {
+        model.addAttribute("breadcrumb", value);
+    }
+
+    default void breabdcrumbs(Model model, List<String> items) {
+        model.addAttribute("breadcrumbs", items);
     }
 }

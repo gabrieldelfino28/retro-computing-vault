@@ -34,8 +34,8 @@ public class ComputadorController extends HardwareControllerTemplate<Computador,
     }
 
     @Override
-    protected String getPluralName() {
-        return "Computadores";
+    protected String entityName() {
+        return "Computador";
     }
 
     @Override
